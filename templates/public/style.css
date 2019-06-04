@@ -65,7 +65,7 @@ main .title {
 main .download {
 	align-items: center;
 	display: flex;
-	margin-bottom: 34px;
+	margin-bottom: 30px;
 }
 
 main .download a {
