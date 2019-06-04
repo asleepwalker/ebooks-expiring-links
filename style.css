@@ -1,0 +1,121 @@
+* {
+	border: 0;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body {
+	min-width: 320px;
+	padding: 14px 15px;
+}
+
+header {
+	align-items: center;
+	display: flex;
+	height: 25px;
+	margin-bottom: 15px;
+}
+
+header .logo {
+	flex: 1;
+	font-size: 16px;
+	line-height: 1.25;
+	letter-spacing: 0.2em;
+}
+
+header .show-help {
+	background-color: #3855fc;
+	border-radius: 50%;
+	color: white;
+	flex-shrink: 0;
+	font-size: 15px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	width: 25px;
+}
+
+main {
+	background-color: white;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+	border-radius: 8px;
+	margin-bottom: 33px;
+	padding: 20px 20px 30px;
+}
+
+main .author {
+	font-size: 16px;
+	line-height: 1.375;
+}
+
+main .title {
+	font-size: 30px;
+	font-weight: 900;
+	line-height: 1.2;
+	margin-bottom: 20px;
+}
+
+main .download {
+	align-items: center;
+	display: flex;
+	margin-bottom: 34px;
+}
+
+main .download a {
+	background-color: #3855fc;
+	border-radius: 8px;
+	color: white;
+	flex: 1;
+	font-size: 16px;
+	height: 48px;
+	line-height: 48px;
+	margin-right: 8px;
+	text-align: center;
+	text-decoration: none;
+}
+
+main .download .info {
+	color: #3855fc;
+	line-height: 1.25;
+}
+
+main .download .extension {
+	font-size: 12px;
+	font-weight: 900;
+}
+
+main .download .size {
+	font-size: 9px;
+	padding-left: 3px;
+}
+
+main .counter {
+	font-size: 16px;
+	line-height: 1.375;
+}
+
+main .counter .value {
+	color: #3855fc;
+	font-weight: 700;
+}
+
+footer {
+	font-size: 16px;
+	line-height: 1.375;
+}
+
+footer .show-help {
+	border-bottom: 1px dashed;
+	color: #3855fc;
+}
+
+footer .number {
+	color: #3855fc;
+}
