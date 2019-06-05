@@ -16,6 +16,7 @@ body {
 }
 
 .wrapper {
+	min-width: 1024px;
 	padding: 27px 36px 82px;
 }
 
@@ -73,8 +74,23 @@ header .menu .create-btn::before {
 }
 
 header .menu .logout {
-	font-size: 16px;
+	align-items: center;
+	border-bottom: 0;
+	display: flex;
 	margin-right: 0;
+}
+
+header .menu .logout::before {
+	background: url('logout.svg') no-repeat;
+	content: '';
+	height: 21px;
+	margin-right: 9px;
+	width: 20px;
+}
+
+header .menu .logout span {
+	border-bottom: 1px solid;
+	font-size: 16px;
 }
 
 main.edit {
@@ -227,4 +243,102 @@ main.login .submit {
 	margin-left: auto;
 	margin-top: 15px;
 	padding: 16px 40px;
+}
+
+main.list {
+	margin-top: 36px;
+	width: 80%;
+}
+
+main.list .header,
+main.list .item {
+	display: flex;
+}
+
+main.list .header {
+	padding: 9px 0;
+}
+
+main.list .cell {
+	flex-shrink: 0;
+}
+
+main.list .header .cell {
+	color: #3855fc;
+	font-size: 15px;
+	line-height: 1.2;
+}
+
+main.list .header .cell.active {
+	color: #7b8b91;
+}
+
+main.list .header .cell span {
+	border-bottom: 1px dashed;
+	cursor: pointer;
+}
+
+main.list .header .cell.active span {
+	border-bottom-color: transparent;
+	cursor: default;
+}
+
+main.list .body {
+	margin-top: 4px;
+}
+
+main.list .item {
+	background-color: white;
+	border: 1px solid #9baafd;
+	border-radius: 15px;
+	color: #233e47;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.2;
+	margin-bottom: 10px;
+	padding: 22px 0;
+	position: relative;
+	transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+main.list .item:last-child {
+	margin-bottom: 0;
+}
+
+main.list .item:hover {
+	border-color: transparent;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+}
+
+main.list .item:hover::after {
+	background: url('edit.svg') no-repeat;
+	content: '';
+	height: 20px;
+	position: absolute;
+	right: 16px;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 20px;
+}
+
+main.list .date {
+	padding-left: 15px;
+	width: 15%;
+}
+
+main.list .author {
+	width: 25%;
+}
+
+main.list .title {
+	width: 30%;
+}
+
+main.list .publisher {
+	width: 17.5%;
+}
+
+main.list .total {
+	width: 12.5%;
 }
