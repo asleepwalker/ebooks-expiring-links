@@ -176,3 +176,55 @@ main.edit section.result .error-msg {
 	line-height: 1.4;
 	margin-top: 36px;
 }
+
+main.login {
+	padding: 150px 0;
+}
+
+main.login form {
+	margin: 0 auto;
+	width: 400px;
+}
+
+main.login h1 {
+	font-size: 32px;
+	line-height: 1.2;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+main.login .fields {
+	border: 2px solid #3855fc;
+	border-radius: 15px;
+}
+
+main.login input {
+	display: block;
+	font-size: 20px;
+	height: 60px;
+	line-height: 1;
+	padding: 20px 13px;
+	width: 100%;
+}
+
+main.login input.login {
+	border-bottom: 2px solid #3855fc;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+main.login input.password {
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+main.login .submit {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	display: block;
+	font-size: 24px;
+	margin-left: auto;
+	margin-top: 15px;
+	padding: 16px 40px;
+}
