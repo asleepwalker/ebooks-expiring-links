@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Admin</title>
+		<title>Admin / Edit</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="../../fonts/fonts.css">
@@ -12,18 +12,19 @@
 				<div class="logo">CARDBOOK</div>
 				<div class="menu">
 					<a href="#">Каталог книг</a>
-					<a class="button" href="#">+ Додати книгу</a>
+					<a class="create-btn" href="#">Додати книгу</a>
+					<a class="logout" href="#">Вийти</a>
 				</div>
 			</header>
-			<main>
+			<main class="edit">
 				<section class="info">
 					<h2>1. Інформація про книгу</h2>
 					<div class="fields">
-						<div class="field">
+						<div class="field author">
 							<label for="author">Автор книги</label>
 							<input id="author" name="author" placeholder="Ім’я, призвище">
 						</div>
-						<div class="field">
+						<div class="field title">
 							<label for="title">Назва</label>
 							<input id="title" name="title">
 						</div>
@@ -49,16 +50,14 @@
 				<section class="submit">
 					<h2>4. Резюме</h2>
 					<div class="data">
-						<div class="text">
-							<p>Іван Нечуй-Левицький</p>
-							<p>Побіда Хмельницького під Збаражем і Зборовом</p>
-							<p>IvanNechuyLevitsky_Pobida.epub 0.7 MB</p>
-							<p>10 000 посилань</p>
-						</div>
-						<button class="generate">Опубліковати</button>
+						<p>Іван Нечуй-Левицький</p>
+						<p>Побіда Хмельницького під Збаражем і Зборовом</p>
+						<p>IvanNechuyLevitsky_Pobida.epub 0.7 MB</p>
+						<p>10 000 посилань</p>
 					</div>
+					<button class="button">Опублікувати</button>
 				</section>
-				<section class="result disabled">
+				<section class="result">
 					<h2>5. Завантажте файл для генерації QR-кодів</h2>
 					<div class="description">Завантажте файл на компьютер для подальшої роботи в InDesign</div>
 					<div class="error-msg">Опублікуйте книгу для генерації посилань на неї</div>

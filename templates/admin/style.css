@@ -1,0 +1,178 @@
+* {
+	border: 0;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Museo Sans', sans-serif;
+}
+
+.wrapper {
+	padding: 27px 36px 82px;
+}
+
+header {
+	align-items: center;
+	display: flex;
+}
+
+header .logo {
+	flex: 1;
+	font-family: 'Termina', sans-serif;
+	font-size: 24px;
+	line-height: 1.25;
+	letter-spacing: 0.3em;
+}
+
+header .menu {
+	align-items: center;
+	display: flex;
+}
+
+header .menu a,
+header .menu span {
+	border-bottom: 1px solid;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-right: 48px;
+	text-decoration: none;
+}
+
+header .menu a {
+	color: #3855fc;
+}
+
+header .menu span {
+	border-bottom-color: transparent;
+}
+
+header .menu .create-btn {
+	align-items: center;
+	background-color: #3855fc;
+	border: 0;
+	border-radius: 15px;
+	color: white;
+	display: flex;
+	height: 60px;
+	margin-right: 174px;
+	padding: 0 22px 0 15px;
+}
+
+header .menu .create-btn::before {
+	content: '+';
+	font-size: 36px;
+	margin-right: 15px;
+}
+
+header .menu .logout {
+	font-size: 16px;
+	margin-right: 0;
+}
+
+main.edit {
+	margin-top: 15px;
+}
+
+main.edit section {
+	margin-bottom: 56px;
+}
+
+main.edit section:last-child {
+	margin-bottom: 0;
+}
+
+main.edit section h2 {
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+main.edit section .description {
+	font-size: 20px;
+	line-height: 1.25;
+	margin-top: 10px;
+}
+
+main.edit section .fields {
+	display: flex;
+	margin-top: 32px;
+}
+
+main.edit section .field {
+	margin-right: 14px;
+}
+
+main.edit section .field:last-child {
+	margin-right: 0;
+}
+
+main.edit section .field.author {
+	width: 33.33%;
+}
+
+main.edit section .field.title {
+	width: 50%;
+}
+
+main.edit section label {
+	display: block;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-bottom: 14px;
+}
+
+main.edit section input {
+	border: 2px solid #3855fc;
+	border-radius: 15px;
+	font-size: 20px;
+	height: 62px;
+	line-height: 28px;
+	padding: 17px;
+	width: 100%;
+}
+
+main.edit section.upload .drop-zone {
+	align-items: center;
+	border: 2px dashed #3855fc;
+	border-radius: 15px;
+	color: #3855fc;
+	display: flex;
+	font-size: 24px;
+	font-weight: 900;
+	height: 160px;
+	justify-content: center;
+	margin-top: 48px;
+	width: 500px;
+}
+
+main.edit section.submit .data {
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
+
+main.edit section.submit .button {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1;
+	margin-top: 36px;
+	padding: 40px 70px;
+}
+
+main.edit section.result .error-msg {
+	color: grey;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
