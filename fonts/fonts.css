@@ -24,6 +24,18 @@
 
 @font-face {
     font-family: 'Museo Sans';
+    src: url('MuseoSansCyrl-300.eot');
+    src: url('MuseoSansCyrl-300.eot?#iefix') format('embedded-opentype'),
+        url('MuseoSansCyrl-300.woff2') format('woff2'),
+        url('MuseoSansCyrl-300.woff') format('woff'),
+        url('MuseoSansCyrl-300.ttf') format('truetype'),
+        url('MuseoSansCyrl-300.svg#MuseoSansCyrl-300') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans';
     src: url('MuseoSansCyrl-300Italic.eot');
     src: url('MuseoSansCyrl-300Italic.eot?#iefix') format('embedded-opentype'),
         url('MuseoSansCyrl-300Italic.woff2') format('woff2'),
