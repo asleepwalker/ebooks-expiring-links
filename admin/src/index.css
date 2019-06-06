@@ -1,0 +1,344 @@
+* {
+	border: 0;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Museo Sans', sans-serif;
+}
+
+.wrapper {
+	min-width: 1024px;
+	padding: 27px 36px 82px;
+}
+
+header {
+	align-items: center;
+	display: flex;
+}
+
+header .logo {
+	flex: 1;
+	font-family: 'Termina', sans-serif;
+	font-size: 24px;
+	line-height: 1.25;
+	letter-spacing: 0.3em;
+}
+
+header .menu {
+	align-items: center;
+	display: flex;
+}
+
+header .menu a,
+header .menu span {
+	border-bottom: 1px solid;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-right: 48px;
+	text-decoration: none;
+}
+
+header .menu a {
+	color: #3855fc;
+}
+
+header .menu span {
+	border-bottom-color: transparent;
+}
+
+header .menu .create-btn {
+	align-items: center;
+	background-color: #3855fc;
+	border: 0;
+	border-radius: 15px;
+	color: white;
+	display: flex;
+	height: 60px;
+	margin-right: 174px;
+	padding: 0 22px 0 15px;
+}
+
+header .menu .create-btn::before {
+	content: '+';
+	font-size: 36px;
+	margin-right: 15px;
+}
+
+header .menu .logout {
+	align-items: center;
+	border-bottom: 0;
+	display: flex;
+	margin-right: 0;
+}
+
+header .menu .logout::before {
+	background: url('logout.svg') no-repeat;
+	content: '';
+	height: 21px;
+	margin-right: 9px;
+	width: 20px;
+}
+
+header .menu .logout span {
+	border-bottom: 1px solid;
+	font-size: 16px;
+}
+
+main.edit {
+	margin-top: 15px;
+}
+
+main.edit section {
+	margin-bottom: 56px;
+}
+
+main.edit section:last-child {
+	margin-bottom: 0;
+}
+
+main.edit section h2 {
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+main.edit section .description {
+	font-size: 20px;
+	line-height: 1.25;
+	margin-top: 10px;
+}
+
+main.edit section .fields {
+	display: flex;
+	margin-top: 32px;
+}
+
+main.edit section .field {
+	margin-right: 14px;
+}
+
+main.edit section .field:last-child {
+	margin-right: 0;
+}
+
+main.edit section .field.author {
+	width: 33.33%;
+}
+
+main.edit section .field.title {
+	width: 50%;
+}
+
+main.edit section label {
+	display: block;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-bottom: 14px;
+}
+
+main.edit section input {
+	border: 2px solid #3855fc;
+	border-radius: 15px;
+	font-size: 20px;
+	height: 62px;
+	line-height: 28px;
+	padding: 17px;
+	width: 100%;
+}
+
+main.edit section.upload .drop-zone {
+	align-items: center;
+	border: 2px dashed #3855fc;
+	border-radius: 15px;
+	color: #3855fc;
+	display: flex;
+	font-size: 24px;
+	font-weight: 900;
+	height: 160px;
+	justify-content: center;
+	margin-top: 48px;
+	width: 500px;
+}
+
+main.edit section.submit .data {
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
+
+main.edit section.submit .button {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1;
+	margin-top: 36px;
+	padding: 40px 70px;
+}
+
+main.edit section.result .error-msg {
+	color: grey;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
+
+main.login {
+	padding: 150px 0;
+}
+
+main.login form {
+	margin: 0 auto;
+	width: 400px;
+}
+
+main.login h1 {
+	font-size: 32px;
+	line-height: 1.2;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+main.login .fields {
+	border: 2px solid #3855fc;
+	border-radius: 15px;
+}
+
+main.login input {
+	display: block;
+	font-size: 20px;
+	height: 60px;
+	line-height: 1;
+	padding: 20px 13px;
+	width: 100%;
+}
+
+main.login input.login {
+	border-bottom: 2px solid #3855fc;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+main.login input.password {
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+main.login .submit {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	display: block;
+	font-size: 24px;
+	margin-left: auto;
+	margin-top: 15px;
+	padding: 16px 40px;
+}
+
+main.list {
+	margin-top: 36px;
+	width: 80%;
+}
+
+main.list .header,
+main.list .item {
+	display: flex;
+}
+
+main.list .header {
+	padding: 9px 0;
+}
+
+main.list .cell {
+	flex-shrink: 0;
+}
+
+main.list .header .cell {
+	color: #3855fc;
+	font-size: 15px;
+	line-height: 1.2;
+}
+
+main.list .header .cell.active {
+	color: #7b8b91;
+}
+
+main.list .header .cell span {
+	border-bottom: 1px dashed;
+	cursor: pointer;
+}
+
+main.list .header .cell.active span {
+	border-bottom-color: transparent;
+	cursor: default;
+}
+
+main.list .body {
+	margin-top: 4px;
+}
+
+main.list .item {
+	background-color: white;
+	border: 1px solid #9baafd;
+	border-radius: 15px;
+	color: #233e47;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.2;
+	margin-bottom: 10px;
+	padding: 22px 0;
+	position: relative;
+	transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+main.list .item:last-child {
+	margin-bottom: 0;
+}
+
+main.list .item:hover {
+	border-color: transparent;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+}
+
+main.list .item:hover::after {
+	background: url('edit.svg') no-repeat;
+	content: '';
+	height: 20px;
+	position: absolute;
+	right: 16px;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 20px;
+}
+
+main.list .date {
+	padding-left: 15px;
+	width: 15%;
+}
+
+main.list .author {
+	width: 25%;
+}
+
+main.list .title {
+	width: 30%;
+}
+
+main.list .publisher {
+	width: 17.5%;
+}
+
+main.list .total {
+	width: 12.5%;
+}
