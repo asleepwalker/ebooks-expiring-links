@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import cx from 'classnames';
 
 import Uploader from './Uploader';
 
+const defaultState = {
+	author: '',
+	title: '',
+	publisher: '',
+	file: false,
+	fileInfo: false,
+	links: '',
+	changed: false
+};
+
 export default class Editor extends Component {
-	state = {
-		author: '',
-		title: '',
-		publisher: '',
-		file: false,
-		total: '',
-		changed: false
-	};
+	state = defaultState;
+
+	componentDidMount() {
+		if (this.props.id) {
+			axios.get(`/api/?method=details&id=${this.props.id}`)
+				.then(response => this.setState({ ...response.data }))
+				.catch(error => alert('При завантаженні інформації сталася помилка'));
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.id !== this.props.id && this.props.id === 0) {
+			this.setState(defaultState);
+		}
+	}
 
 	handleChange = (name, value) => {
 		this.setState({
@@ -24,14 +42,49 @@ export default class Editor extends Component {
 		this.handleChange(event.target.name, event.target.value);
 	};
 
+	handleFileChange = file => {
+		this.handleChange('file', file);
+		this.setState({
+			fileInfo: {
+				name: file.name,
+				size: file.size
+			}
+		});
+	};
+
 	handleSubmit = () => {
-		const { bookId, onCreate } = this.props;
+		const { id, onCreate } = this.props;
+		const { author, title, publisher, file, links } = this.state;
+		const formData = new FormData();
+		let method = 'create';
 
-		this.setState({ changed: false });
+		formData.append('author', author);
+		formData.append('title', title);
+		formData.append('publisher', publisher);
+		formData.append('links', links);
 
-		if (!bookId) {
-			onCreate(1);
+		if (id) {
+			formData.append('id', id);
+			method = 'edit';
 		}
+
+		if (file) {
+			console.log('file', file);
+			formData.append('file', file);
+		}
+
+		axios.post(`/api/?method=${method}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }).then(response => {
+        	if (response.data.result === 'ok') {
+				this.setState({ changed: false });
+				if (!id) onCreate(response.data.id);
+			} else {
+				alert('При збереженні даних сталася помилка');
+			}
+        });
+
+		
 	};
 
 	renderInfoSection() {
@@ -75,17 +128,19 @@ export default class Editor extends Component {
 	}
 
 	renderUploadSection() {
+		const { fileInfo } = this.state;
+
 		return (
 			<section className="upload">
 				<h2>2. Завантаження файлів</h2>
 				<div className="description">Перетягніть файл потрібного формату у відповідну комірку</div>
-			    <Uploader onChange={this.handleChange} />
+			    <Uploader fileName={fileInfo.name} onChange={this.handleFileChange} />
 			</section>
 		);
 	}
 
 	renderLinksSection() {
-		const { total } = this.state;
+		const { links } = this.state;
 
 		return (
 			<section className="links">
@@ -93,12 +148,12 @@ export default class Editor extends Component {
 				<div className="description">Введіть необхідну кількість унікальних посилань</div>
 				<div className="fields">
 					<div className="field">
-						<label htmlFor="total">Кількість посилань</label>
+						<label htmlFor="links">Кількість посилань</label>
 						<input
-							id="total"
+							id="links"
 							type="number"
-							name="total"
-							value={total}
+							name="links"
+							value={links}
 							onChange={this.handleInputChange}
 						/>
 					</div>
@@ -108,15 +163,15 @@ export default class Editor extends Component {
 	}
 
 	renderSubmitSection() {
-		const { bookId } = this.props;
-		const { author, title, publisher, file, total, changed } = this.state;
+		const { id } = this.props;
+		const { author, title, publisher, fileInfo, links, changed } = this.state;
 
 		const data = [
 			{ valid: author !== '', text: author, placeholder: 'Автор' },
 			{ valid: title !== '', text: title, placeholder: 'Назва' },
 			{ valid: publisher !== '', text: publisher, placeholder: 'Видавництво' },
-			{ valid: file, text: `${file.name} ${Math.ceil(file.size / 100000) / 10} MB`, placeholder: 'Файл' },
-			{ valid: total > 0, text: `${total} посилань`, placeholder: 'Кількість посилань' }
+			{ valid: fileInfo, text: `${fileInfo.name} ${Math.ceil(fileInfo.size / 100000) / 10} MB`, placeholder: 'Файл' },
+			{ valid: links > 0, text: `${links} посилань`, placeholder: 'Кількість посилань' }
 		];
 		const invalid = data.some(({ valid }) => !valid);
 
@@ -131,26 +186,31 @@ export default class Editor extends Component {
 					)}
 				</div>
 				<button
-					className={cx('button', { published: bookId && !changed })}
+					className={cx('button', { published: id && !changed })}
 					disabled={invalid || !changed}
 					onClick={this.handleSubmit}
 				>
-					{!bookId || changed ? 'Опублікувати' : 'Опубліковано'}
+					{!id || changed ? 'Опублікувати' : 'Опубліковано'}
 				</button>
 			</section>
 		);
 	}
 
 	renderResultSection() {
-		const { bookId } = this.props;
+		const { id } = this.props;
 
 		const notAvailable = <div className="error-msg">Опублікуйте книгу для генерації посилань на неї</div>;
+		const link = (
+			<a className="get-links" href={`/api/links.php?id=${id}`}>
+				{`cardbook_links_${id}.csv`}
+			</a>
+		);
 
 		return (
 			<section className="result">
 				<h2>5. Завантажте файл для генерації QR-кодів</h2>
 				<div className="description">Завантажте файл на компьютер для подальшої роботи в InDesign</div>
-				{ !bookId ? notAvailable : 'done' }
+				{ !id ? notAvailable : link }
 			</section>
 		);
 	}

@@ -2,18 +2,18 @@ import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import cx from 'classnames';
 
-export default function Uploader(props) {
+export default function Uploader({ fileName, onChange }) {
 	const onDrop = useCallback(acceptedFiles => {
 		if (acceptedFiles.length) {
-			props.onChange('file', acceptedFiles[0]);
+			onChange(acceptedFiles[0]);
 		}
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDrop });
-	const className = cx('drop-zone', { active: isDragActive, filled: acceptedFiles.length });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+	const className = cx('drop-zone', { active: isDragActive, filled: fileName });
 	const rootProps = { ...getRootProps(), className: className };
 	const inputProps = { ...getInputProps(), multiple: false };
-	const text = isDragActive ? 'Завантажити' : (acceptedFiles.length ? acceptedFiles[0].name : '.epub');
+	const text = isDragActive ? 'Завантажити' : (fileName ? fileName : '.epub');
 
 	return (
 		<div {...rootProps}>

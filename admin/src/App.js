@@ -12,8 +12,10 @@ export default class App extends Component {
 	};
 
 	handleLogin = event => {
-		event.preventDefault();
-		this.setState({ authorized: true });
+		this.setState({
+			authorized: true,
+			editing: false
+		});
 	};
 
 	handleShowList = () => {

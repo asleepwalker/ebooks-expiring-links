@@ -262,6 +262,28 @@ main.edit section.result .error-msg {
 	margin-top: 36px;
 }
 
+main.edit section.result .get-links {
+	align-items: center;
+	color: #3855fc;
+	display: inline-flex;
+    font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+    text-decoration: none;
+}
+
+main.edit section.result .get-links::after {
+	background: url('download.svg') no-repeat;
+    content: '';
+    height: 30px;
+    margin-left: 10px;
+    width: 30px;
+}
+
+main.edit section.result .get-links:hover {
+	color: #8598ff;
+}
+
 main.login {
 	padding: 150px 0;
 }
@@ -316,13 +338,18 @@ main.login .submit {
 	transition: all 0.25s;
 }
 
-main.login .submit:hover {
+main.login .submit[disabled] {
+	background-color: #c3ccfe;
+	cursor: default;
+}
+
+main.login .submit:not([disabled]):hover {
 	background-color: white;
     box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
     color: #3855fc;
 }
 
-main.login .submit:active {
+main.login .submit:not([disabled]):active {
 	background-color: #fecc69;
 	box-shadow: none;
 	color: white;
@@ -424,6 +451,6 @@ main.list .publisher {
 	width: 17.5%;
 }
 
-main.list .total {
+main.list .links {
 	width: 12.5%;
 }

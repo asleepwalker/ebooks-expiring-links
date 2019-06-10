@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class List extends Component {
 	state = {
@@ -11,8 +12,26 @@ export default class List extends Component {
 		{ name: 'author', title : 'Автор' },
 		{ name: 'title', title : 'Назва' },
 		{ name: 'publisher', title : 'Видавництво' },
-		{ name: 'total', title : 'Кількість' }
+		{ name: 'links', title : 'Кількість' }
 	];
+
+	componentDidMount() {
+		this.fetchData();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.sortBy !== this.state.sortBy) {
+			this.fetchData();
+		}
+	}
+
+	fetchData = () => {
+		const { sortBy } = this.state;
+
+		axios.get(`/api/?method=list&sort=${sortBy}`)
+			.then(response => this.setState({ list: response.data }))
+			.catch(error => alert('При завантаженні списку сталася помилка'));
+	};
 
 	handleSortBy = column => {
 		this.setState({ sortBy: column });
