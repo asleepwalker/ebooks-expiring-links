@@ -1,26 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function List() {
-  return (
-	<main class="list">
-		<div class="header">
-			<div class="cell date active"><span>Дата</span></div>
-			<div class="cell author"><span>Автор</span></div>
-			<div class="cell title"><span>Назва</span></div>
-			<div class="cell publisher"><span>Видавництво</span></div>
-			<div class="cell total"><span>Кількість</span></div>
-		</div>
-		<div class="body">
-			<div class="item">
-				<div class="cell date">03.06.2019 15:43</div>
-				<div class="cell author">Іван Нечуй-Левицький</div>
-				<div class="cell title">Побіда Хмельницького під Збаражем і Зборовом</div>
-				<div class="cell publisher">Основи</div>
-				<div class="cell total">10 000</div>
+export default class List extends Component {
+	state = {
+		sortBy: 'created',
+		list: []
+	};
+
+	columns = [
+		{ name: 'created', title : 'Дата' },
+		{ name: 'author', title : 'Автор' },
+		{ name: 'title', title : 'Назва' },
+		{ name: 'publisher', title : 'Видавництво' },
+		{ name: 'total', title : 'Кількість' }
+	];
+
+	handleSortBy = column => {
+		this.setState({ sortBy: column });
+	};
+
+	handleOpenEditor = () => {
+		this.props.onShowEditor();
+	};
+
+	renderHeaderCell(data) {
+		const { sortBy } = this.state;
+		const { name, title } = data;
+
+		return (
+			<div className={`cell ${name} ${sortBy === name ? ' active' : ''}`} key={name}>
+				<span onClick={() => this.handleSortBy(name)}>
+					{title}
+				</span>
 			</div>
-		</div>
-	</main>
-  );
-}
+		);
+	}
 
-export default List;
+	renderItem(data) {
+		const { onShowEditor } = this.props;
+		const { id, ...bookData } = data;
+
+		return (
+			<div
+				className="item"
+				onClick={() => onShowEditor(id)}
+				key={id}
+			>
+				{this.columns.map(({ name: column }) =>
+					<div className={`cell ${column}`} key={column}>
+						{bookData[column]}
+					</div>
+				)}
+			</div>
+		);
+	}
+
+	render() {
+		const { list } = this.state;
+
+		return (
+			<main className="list">
+				<div className="header">
+					{this.columns.map((data) => this.renderHeaderCell(data))}
+				</div>
+				<div className="body">
+					{list.map((data) => this.renderItem(data))}
+				</div>
+			</main>
+		);
+	}
+}

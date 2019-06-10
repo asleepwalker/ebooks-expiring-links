@@ -1,16 +1,27 @@
 import React from 'react';
+import cx from 'classnames';
 
-function Header() {
-  return (
-	<header>
-		<div class="logo">CARDBOOK</div>
-		<div class="menu">
-			<a href="#">Каталог книг</a>
-			<a class="create-btn" href="#">Додати книгу</a>
-			<a class="logout" href="#"><span>Вийти</span></a>
-		</div>
-	</header>
-  );
-}
+export default function Header({
+	showMenu = true,
+	listButtonActive = false,
+	createButtonActive = false,
+	onShowList,
+	onShowEditor,
+	onLogout
+}) {
+	const listButtonClassNames = cx('item', { active: listButtonActive });
+	const createButtonClassNames = cx('item', 'create-btn', { disabled: createButtonActive });
 
-export default Header;
+	return (
+		<header>
+			<div className="logo">CARDBOOK</div>
+			{ showMenu && (
+				<div className="menu">
+					<span className={listButtonClassNames} onClick={onShowList}>Каталог книг</span>
+					<span className={createButtonClassNames} onClick={onShowEditor}>Додати книгу</span>
+					<span className="item logout" onClick={onLogout}>Вийти</span>
+				</div>
+			)}
+		</header>
+	);
+};
