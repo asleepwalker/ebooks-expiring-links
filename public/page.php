@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Book page</title>
+		<title><?php echo $title; ?></title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<link rel="stylesheet" type="text/css" href="../../fonts/fonts.css">
+		<link rel="stylesheet" type="text/css" href="fonts/fonts.css">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -14,16 +14,16 @@
 				<buttom class="show-help">?</buttom>
 			</header>
 			<main>
-				<div class="author">Іван Нечуй-Левицький</div>
-				<div class="title">Побіда Хмельницького під Збаражем і Зборовом</div>
+				<div class="author"><?php echo $author; ?></div>
+				<div class="title"><?php echo $title; ?></div>
 				<div class="download">
-					<a href="#">Завантажити</a>
+					<a <?php echo $limit > 0 ? 'href="/api/download.php?code='.$_GET['code'].'"' : 'class="disabled"'; ?>>Завантажити</a>
 					<div class="info">
-						<div class="extension">.epub</div>
-						<div class="size">0.4 MB</div>
+						<div class="extension"><?php echo '.'.$extension; ?></div>
+						<div class="size"><?php echo $size; ?> MB</div>
 					</div>
 				</div>
-				<div class="counter">Залишилось <span class="value">4</span> завантаження</div>
+				<div class="counter">Залишилось <span class="value"><?php echo $limit; ?></span> завантаження</div>
 			</main>
 			<footer>
 				Якщо ви не знайшли <span class="show-help">відповідь</span> на питання, телефонуйте за номером <span class="number">0 800 700 600 50</span>

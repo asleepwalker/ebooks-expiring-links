@@ -230,7 +230,7 @@ main.edit section.submit .button {
 	font-weight: 700;
     height: 112px;
 	line-height: 1;
-	margin-top: 36px;
+	margin: 36px auto 0;
 	padding: 40px 70px;
 	transition: all 0.2s;
 }

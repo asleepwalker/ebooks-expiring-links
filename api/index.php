@@ -5,7 +5,7 @@ header('Access-Control-Allow-Methods: GET, HEAD, OPTIONS, POST');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
 header('Content-Type: application/json; charset=UTF-8');
 
-include_once './database.php';
+include_once '../database.php';
 
 $database = new Database();
 $database->connect();

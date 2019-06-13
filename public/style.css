@@ -13,6 +13,9 @@
 
 body {
 	font-family: 'Museo Sans', sans-serif;
+}
+
+.wrapper {
 	min-width: 320px;
 	padding: 14px 15px 30px;
 }
@@ -36,6 +39,7 @@ header .show-help {
 	background-color: #3855fc;
 	border-radius: 50%;
 	color: white;
+	cursor: pointer;
 	flex-shrink: 0;
 	font-size: 15px;
 	font-weight: 700;
@@ -85,6 +89,11 @@ main .download a {
 	text-decoration: none;
 }
 
+main .download a.disabled {
+	background-color: #c3ccfe;
+	cursor: default;
+}
+
 main .download .info {
 	color: #3855fc;
 	line-height: 1.25;
@@ -118,8 +127,64 @@ footer {
 footer .show-help {
 	border-bottom: 1px dashed;
 	color: #3855fc;
+	cursor: pointer;
 }
 
 footer .number {
 	color: #3855fc;
+}
+
+@media (min-width: 768px) {
+	.wrapper {
+		padding: 14px 15px 30px 65px;
+	}
+
+	header {
+		margin-bottom: 50px;
+	}
+
+	main {
+		box-shadow: none;
+		margin-bottom: 88px;
+		padding: 0;
+		width: 80%;
+	}
+
+	main .author {
+		font-size: 24px;
+	}
+
+	main .title {
+		font-size: 50px;
+		margin-bottom: 30px;
+	}
+
+	main .download {
+		margin-bottom: 60px;
+		width: 400px;
+	}
+
+	main .download a {
+		font-size: 28px;
+		height: 80px;
+		line-height: 80px;
+		margin-right: 20px;
+	}
+
+	main .download .extension {
+		font-size: 21px;
+	}
+
+	main .download .size {
+		font-size: 16px;
+	}
+
+	main .counter {
+		font-size: 24px;
+	}
+
+	footer {
+		font-size: 24px;
+		width: 50%;
+	}
 }
