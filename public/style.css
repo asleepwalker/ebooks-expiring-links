@@ -35,7 +35,8 @@ header .logo {
 	letter-spacing: 0.2em;
 }
 
-header .show-help {
+header .show-help,
+header .hide-help {
 	background-color: #3855fc;
 	border-radius: 50%;
 	color: white;
@@ -47,6 +48,10 @@ header .show-help {
 	line-height: 25px;
 	text-align: center;
 	width: 25px;
+}
+
+header .hide-help {
+	display: none;
 }
 
 main {
@@ -134,13 +139,60 @@ footer .number {
 	color: #3855fc;
 }
 
+.faq {
+	background-color: white;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+	border-radius: 8px;
+	display: none;
+	padding: 20px 20px 30px;
+}
+
+.faq h2 {
+	font-size: 30px;
+	font-weight: 900;
+	line-height: 1;
+}
+
+.faq h3 {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.2;
+	margin-top: 20px;
+}
+
+.faq p {
+	font-size: 15px;
+	line-height: 1.4;
+	margin-top: 12px;
+}
+
+.show-faq main,
+.show-faq footer,
+.show-faq .show-help {
+	display: none;
+}
+
+.show-faq .faq,
+.show-faq .hide-help {
+	display: block;
+}
+
 @media (min-width: 768px) {
 	.wrapper {
 		padding: 14px 15px 30px 65px;
 	}
 
 	header {
-		margin-bottom: 50px;
+		height: 30px;
+		margin-bottom: 45px;
+	}
+
+	header .show-help,
+	header .hide-help {
+		font-size: 20px;
+		height: 30px;
+		line-height: 30px;
+		width: 30px;
 	}
 
 	main {
@@ -186,5 +238,33 @@ footer .number {
 	footer {
 		font-size: 24px;
 		width: 50%;
+	}
+
+	.faq {
+		margin: -36px 0 0 -45px;
+		padding: 36px 20px 45px 45px;
+	}
+
+	.faq h2,
+	.faq h3,
+	.faq p {
+		max-width: 660px;
+	}
+
+	.faq h2 {
+		font-size: 50px;
+		line-height: 1.1;
+	}
+
+	.faq h3 {
+		font-size: 25px;
+		line-height: 1.1;
+		margin: 22px 0 16px;
+	}
+
+	.faq p {
+		font-size: 17px;
+		line-height: 1.4;
+		margin-top: 14px;
 	}
 }
