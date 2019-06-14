@@ -1,6 +1,6 @@
 <?php
 
-include_once './api/database.php';
+include_once './database.php';
 
 $database = new Database();
 $database->connect();

@@ -17,7 +17,7 @@ if ($link['downloads'] >= 5) {
 header("Content-Description: File Transfer"); 
 header("Content-Type: application/octet-stream");
 header('Content-Disposition: attachment; filename="'.$book['file'].'"');
-readfile('uploads/'.$book['file']);
+readfile('../uploads/'.$book['file']);
 
 $database->query('UPDATE `links` SET `downloads` = '.($link['downloads'] + 1).' WHERE `id` = '.$link['id']);
 exit;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { apiRoot } from './config';
+
 export default class List extends Component {
 	state = {
 		sortBy: 'created',
@@ -28,17 +30,13 @@ export default class List extends Component {
 	fetchData = () => {
 		const { sortBy } = this.state;
 
-		axios.get(`/api/?method=list&sort=${sortBy}`)
+		axios.get(`${apiRoot}?method=list&sort=${sortBy}`)
 			.then(response => this.setState({ list: response.data }))
 			.catch(error => alert('При завантаженні списку сталася помилка'));
 	};
 
 	handleSortBy = column => {
 		this.setState({ sortBy: column });
-	};
-
-	handleOpenEditor = () => {
-		this.props.onShowEditor();
 	};
 
 	renderHeaderCell(data) {
@@ -55,13 +53,13 @@ export default class List extends Component {
 	}
 
 	renderItem(data) {
-		const { onShowEditor } = this.props;
+		const { onEdit } = this.props;
 		const { id, ...bookData } = data;
 
 		return (
 			<div
 				className="item"
-				onClick={() => onShowEditor(id)}
+				onClick={() => onEdit(id)}
 				key={id}
 			>
 				{this.columns.map(({ name: column }) =>
@@ -78,6 +76,7 @@ export default class List extends Component {
 
 		return (
 			<main className="list">
+				<h1>Каталог</h1>
 				<div className="header">
 					{this.columns.map((data) => this.renderHeaderCell(data))}
 				</div>

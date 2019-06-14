@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { apiRoot } from './config';
+
 export default class Login extends Component {
 	state = {
 		login: '',
@@ -16,7 +18,7 @@ export default class Login extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 
-		axios.post('/api/?method=auth', this.state)
+		axios.post(`${apiRoot}?method=auth`, this.state)
 			.then(response => {
 				if (response.data.result === 'ok') {
 					this.props.onSubmit();

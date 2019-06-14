@@ -110,180 +110,6 @@ header .menu .logout::before {
 	width: 20px;
 }
 
-main.edit {
-	margin-top: 15px;
-}
-
-main.edit section {
-	margin-bottom: 56px;
-}
-
-main.edit section:last-child {
-	margin-bottom: 0;
-}
-
-main.edit section h2 {
-	font-size: 32px;
-	font-weight: 700;
-	line-height: 1.25;
-}
-
-main.edit section .description {
-	font-size: 20px;
-	line-height: 1.25;
-	margin-top: 10px;
-}
-
-main.edit section .fields {
-	display: flex;
-	flex-wrap: wrap;
-	margin-top: 32px;
-	margin-bottom: -30px;
-}
-
-main.edit section .field {
-	margin-right: 14px;
-	margin-bottom: 30px;
-}
-
-main.edit section .field:last-child {
-	margin-right: 0;
-}
-
-main.edit section .field.author,
-main.edit section .field.publisher {
-	width: 33.33%;
-}
-
-main.edit section .field.title {
-	width: 50%;
-}
-
-main.edit section label {
-	display: block;
-	font-size: 20px;
-	line-height: 1.4;
-	margin-bottom: 14px;
-}
-
-main.edit section input {
-	border: 2px solid #3855fc;
-	border-radius: 15px;
-	font-size: 20px;
-	height: 62px;
-	line-height: 28px;
-	padding: 17px;
-	width: 100%;
-}
-
-main.edit section.upload .drop-zone {
-	align-items: center;
-	border: 2px dashed #3855fc;
-	border-radius: 15px;
-	color: #3855fc;
-	cursor: pointer;
-	display: flex;
-	font-size: 24px;
-	font-weight: 900;
-	height: 160px;
-	justify-content: center;
-	margin-top: 48px;
-	transition: all 0.2s;
-	width: 500px;
-}
-
-main.edit section.upload .drop-zone.filled {
-	background-color: #3855fc;
-	border-color: transparent;
-	color: white;
-}
-
-main.edit section.upload .drop-zone.active {
-	background-color: #fff0cf;
-	border-color: transparent;
-	color: black;
-}
-
-main.edit section.upload .drop-zone .text {
-	max-width: 80%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-main.edit section.submit .data {
-	font-size: 20px;
-	line-height: 1.4;
-	margin-top: 36px;
-}
-
-main.edit section.submit .data .invalid {
-	color: #ff4b4f;
-}
-
-main.edit section.submit .button {
-	background-color: #3855fc;
-	border-radius: 15px;
-	color: white;
-	cursor: pointer;
-	display: flex;
-	font-size: 32px;
-	font-weight: 700;
-    height: 112px;
-	line-height: 1;
-	margin: 36px auto 0;
-	padding: 40px 70px;
-	transition: all 0.2s;
-}
-
-main.edit section.submit .button[disabled] {
-	background-color: #c3ccfe;
-	cursor: default;
-}
-
-main.edit section.submit .button.published {
-	background-color: transparent;
-	color: #4ab969;
-}
-
-main.edit section.submit .button.published::before {
-	background: url('check.svg') no-repeat;
-    content: '';
-    height: 41px;
-    margin-right: 16px;
-    margin-left: -45px;
-    transform: translateY(-5px);
-    width: 32px;
-}
-
-main.edit section.result .error-msg {
-	color: grey;
-	font-size: 20px;
-	line-height: 1.4;
-	margin-top: 36px;
-}
-
-main.edit section.result .get-links {
-	align-items: center;
-	color: #3855fc;
-	display: inline-flex;
-    font-size: 20px;
-	line-height: 1.4;
-	margin-top: 36px;
-    text-decoration: none;
-}
-
-main.edit section.result .get-links::after {
-	background: url('download.svg') no-repeat;
-    content: '';
-    height: 30px;
-    margin-left: 10px;
-    width: 30px;
-}
-
-main.edit section.result .get-links:hover {
-	color: #8598ff;
-}
-
 main.login {
 	padding: 150px 0;
 }
@@ -360,6 +186,7 @@ main.list {
 	margin-top: 36px;
 	width: 80%;
 }
+
 
 main.list .header,
 main.list .item {
@@ -453,4 +280,377 @@ main.list .publisher {
 
 main.list .links {
 	width: 12.5%;
+}
+
+main.list h1,
+main.create h1,
+main.edit h1 {
+	font-size: 60px;
+	font-weight: 900;
+	line-height: 1;
+	margin-bottom: 60px;
+}
+
+main.create,
+main.edit {
+	margin-top: 36px;
+}
+
+main.create section,
+main.edit section {
+	margin-bottom: 56px;
+}
+
+main.create section:last-child,
+main.edit section:last-child {
+	margin-bottom: 0;
+}
+
+main.create section h2,
+main.edit section h2 {
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+main.create section .description,
+main.edit section .description {
+	font-size: 20px;
+	line-height: 1.25;
+	margin-top: 10px;
+}
+
+main.create section .fields,
+main.edit section .fields {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 32px;
+	margin-bottom: -30px;
+}
+
+main.create section .field,
+main.edit section .field {
+	margin-right: 14px;
+	margin-bottom: 30px;
+}
+
+main.create section .field:last-child,
+main.edit section .field:last-child {
+	margin-right: 0;
+}
+
+main.create section label,
+main.edit section label {
+	display: block;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-bottom: 14px;
+}
+
+main.create section input,
+main.edit section input {
+	border: 2px solid #3855fc;
+	border-radius: 15px;
+	font-size: 20px;
+	height: 60px;
+	line-height: 28px;
+	padding: 17px;
+	width: 100%;
+}
+
+main.create section input[disabled],
+main.edit section input[disabled] {
+	color: #888;
+}
+
+main.create section.upload .drop-zone,
+main.edit section.upload .drop-zone {
+	align-items: center;
+	border: 2px dashed #3855fc;
+	border-radius: 15px;
+	color: #3855fc;
+	cursor: pointer;
+	display: flex;
+	font-size: 24px;
+	font-weight: 900;
+	height: 160px;
+	justify-content: center;
+	margin-top: 48px;
+	transition: all 0.2s;
+	width: 500px;
+}
+
+main.create section.upload .drop-zone.filled,
+main.edit section.upload .drop-zone.filled {
+	background-color: #3855fc;
+	border-color: transparent;
+	color: white;
+}
+
+main.create section.upload .drop-zone.active,
+main.edit section.upload .drop-zone.active {
+	background-color: #fff0cf;
+	border-color: transparent;
+	color: black;
+}
+
+main.create section.upload .drop-zone .text,
+main.edit section.upload .drop-zone .text {
+	max-width: 80%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+main.create section.submit .button,
+main.edit section.submit .button {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	font-size: 32px;
+	font-weight: 700;
+    height: 112px;
+	line-height: 1;
+	margin: 36px auto 0;
+	padding: 40px 70px;
+	transition: all 0.2s;
+}
+
+main.create section.submit .button[disabled],
+main.edit section.submit .button[disabled] {
+	background-color: #c3ccfe;
+	cursor: default;
+}
+
+main.create section.submit .button.published,
+main.edit section.submit .button.published {
+	background-color: transparent;
+	color: #4ab969;
+}
+
+main.create section.submit .button.published::before,
+main.edit section.submit .button.published::before {
+	background: url('check.svg') no-repeat;
+    content: '';
+    height: 41px;
+    margin-right: 16px;
+    margin-left: -45px;
+    transform: translateY(-5px);
+    width: 32px;
+}
+
+main.create section.result .get-links,
+main.edit section.result .get-links {
+	align-items: center;
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	display: inline-flex;
+    font-size: 15px;
+	line-height: 1.25;
+	margin-top: 36px;
+	padding: 12px 20px;
+	transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+main.create section.result .get-links::before,
+main.edit section.result .get-links::before {
+	background: url('qr.svg') no-repeat;
+    content: '';
+    height: 34px;
+    margin-right: 20px;
+    width: 34px;
+}
+
+main.create section.result .get-links:hover,
+main.edit section.result .get-links:hover {
+	background-color: #8598ff;
+}
+
+main.create section .field.author,
+main.create section .field.publisher {
+	width: 33.33%;
+}
+
+main.create section .field.title {
+	width: 50%;
+}
+
+main.create section.submit .data {
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
+
+main.create section.submit .data .invalid {
+	color: #ff4b4f;
+}
+
+main.create section.result .error-msg {
+	color: grey;
+	font-size: 20px;
+	line-height: 1.4;
+	margin-top: 36px;
+}
+
+main.edit section .data {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 20px;
+	line-height: 1.2;
+	margin-top: 12px;
+}
+
+main.edit section .data:first-child {
+	margin-top: 0;
+}
+
+main.edit section .data.hidden {
+	display: none;
+}
+
+main.edit section .data.title {
+	font-size: 34px;
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+main.edit section .data.publisher {
+	margin-top: 25px;
+}
+
+main.edit section .data .edit {
+	background: transparent url('edit.svg') no-repeat;
+	cursor: pointer;
+	height: 20px;
+	margin-left: 14px;
+	transition: opacity 0.2s;
+	width: 20px;
+}
+
+main.edit section .data .edit:hover {
+	opacity: 0.6;
+}
+
+main.edit section .field {
+	margin-top: 12px;
+	width: 40%;
+}
+
+main.edit section .field:first-child {
+	margin-top: 0;
+}
+
+main.edit section .field.hidden {
+	display: none;
+}
+
+main.edit section .field.publisher {
+	margin-top: 30px;
+}
+
+main.edit section.result .header {
+	align-items: center;
+	display: flex;
+}
+
+main.edit section.result h2 {
+	flex: 1;
+}
+
+main.edit section.result .create-btn {
+	align-items: center;
+	background-color: #3855fc;
+	border: 0;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	font-size: 20px;
+	height: 60px;
+	line-height: 1;
+	padding: 0 22px 0 15px;
+	transition: all 0.4s;
+}
+
+main.edit section.result .create-btn::before {
+	content: '+';
+	font-size: 36px;
+	margin-right: 15px;
+}
+
+main.edit section.result .create-btn[disabled] {
+	background-color: #c3ccfe;
+	color: white;
+	cursor: default;
+}
+
+main.edit section.result .create-btn:not([disabled]):hover {
+	background-color: white;
+    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+    color: #3855fc;
+}
+
+main.edit section.result .create-btn:not([disabled]):active {
+	background-color: #fecc69;
+	box-shadow: none;
+	color: white;
+	transition-duration: 0.15s;
+}
+
+main.edit section.result .existing-links {
+	margin: 36px 0 -9px;
+}
+
+main.edit section.result .get-links {
+	margin: 0 9px 9px 0;
+}
+
+main.edit section.result .new-links {
+	border-radius: 15px;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+	margin-top: 36px;
+	padding: 30px 40px 40px;
+}
+
+main.edit section.result .new-links .fields {
+	align-items: flex-end;
+	margin-bottom: 0;
+}
+
+main.edit section.result .new-links .field {
+	margin-bottom: 0;
+	width: 250px;
+}
+
+main.edit section.result .new-links .submit {
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+	display: block;
+	font-size: 24px;
+	padding: 16px 40px;
+	transition: all 0.25s;
+}
+
+main.edit section.result .new-links .submit[disabled] {
+	background-color: #c3ccfe;
+	cursor: default;
+}
+
+main.edit section.result .new-links .submit:not([disabled]):hover {
+	background-color: white;
+    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+    color: #3855fc;
+}
+
+main.edit section.result .new-links .submit:not([disabled]):active {
+	background-color: #fecc69;
+	box-shadow: none;
+	color: white;
+	transition-duration: 0.15s;
 }

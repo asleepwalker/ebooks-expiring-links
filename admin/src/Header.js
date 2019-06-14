@@ -6,7 +6,7 @@ export default function Header({
 	listButtonActive = false,
 	createButtonActive = false,
 	onShowList,
-	onShowEditor,
+	onCreate,
 	onLogout
 }) {
 	const listButtonClassNames = cx('item', { active: listButtonActive });
@@ -18,7 +18,7 @@ export default function Header({
 			{ showMenu && (
 				<div className="menu">
 					<span className={listButtonClassNames} onClick={onShowList}>Каталог книг</span>
-					<span className={createButtonClassNames} onClick={onShowEditor}>Додати книгу</span>
+					<span className={createButtonClassNames} onClick={onCreate}>Додати книгу</span>
 					<span className="item logout" onClick={onLogout}>Вийти</span>
 				</div>
 			)}

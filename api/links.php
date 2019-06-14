@@ -12,15 +12,15 @@ $database->connect();
 }*/
 
 $id = $database->escape($_GET['id']);
-$links = $database->query('SELECT `code`, `downloads` FROM `links` WHERE `book` = '.$id);
+$bunch = $database->escape($_GET['bunch']);
+$links = $database->query('SELECT `code`, `downloads` FROM `links` WHERE `book` = '.$id.' AND `bunch` = '.$bunch);
 
 header('Content-Type: text/csv');
-header('Content-Disposition: attachment; filename="cardbook_links_'.$id.'.csv"');
+header('Content-Disposition: attachment; filename="cardbook_'.addslashes($_GET['bunch']).'.csv"');
 
 $fp = fopen('php://output', 'wb');
-fputcsv($fp, array('#', 'Code', 'Used'), ',');
-foreach ($links as $index => $link) {
-	$block = array($index + 1, $link['code'], $link['downloads']);
-    fputcsv($fp, $block, ',');
+fputcsv($fp, array('#QR'));
+foreach ($links as $link) {
+    fputcsv($fp, array('https://localhost/?code='.$link['code']));
 }
 fclose($fp);

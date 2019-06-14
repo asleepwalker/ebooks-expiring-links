@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Login from './Login';
 import List from './List';
+import Create from './Create';
 import Editor from './Editor';
 
 export default class App extends Component {
@@ -22,11 +23,11 @@ export default class App extends Component {
 		this.setState({ editing: false });
 	};
 
-	handleShowCreate = () => {
+	handleCreate = () => {
 		this.setState({ editing: 0 });
 	};
 
-	handleShowEditor = id => {
+	handleEdit = id => {
 		this.setState({ editing: id });
 	};
 
@@ -41,11 +42,15 @@ export default class App extends Component {
 			return <Login onSubmit={this.handleLogin} />;
 		}
 
-		if (editing === false) {
-			return <List onShowEditor={this.handleShowEditor} />;
+		if (editing === 0) {
+			return <Create />;
 		}
 
-		return <Editor id={editing} onCreate={this.handleShowEditor} />;
+		if (editing > 0) {
+			return <Editor id={editing} />;
+		}
+
+		return <List onEdit={this.handleEdit} />;
 	}
 
 	render() {
@@ -58,7 +63,7 @@ export default class App extends Component {
 					listButtonActive={authorized && editing === false}
 					createButtonActive={authorized && editing === 0}
 					onShowList={this.handleShowList}
-					onShowEditor={this.handleShowCreate}
+					onCreate={this.handleCreate}
 					onLogout={this.handleLogout}
 				/>
 				{ this.renderPanel() }

@@ -49,10 +49,10 @@ if ($_GET['method'] === 'list') {
 if ($_GET['method'] === 'details') {
 	$book_id = $database->escape($_GET['id']);
 	$data = $database->query('SELECT * FROM `books` WHERE `id` = '.$book_id, 'fetch_one');
-	$links = $database->query('SELECT id FROM `links` WHERE `book` = '.$book_id, 'count');
-	$data['links'] = $links;
+	$links = $database->query('SELECT `bunch` FROM `links` WHERE `book` = '.$book_id.' GROUP BY `bunch`');
+	$data['links'] = array_column($links, 'bunch');
 	if ($data['file']) {
-		$data['fileInfo'] = array('name' => $data['file'], 'size' => filesize('../uploads/'.$data['file']));
+		$data['fileName'] = $data['file'];
 		unset($data['file']);
 	}
 	echo json_encode($data);
@@ -66,8 +66,8 @@ if ($_GET['method'] === 'create') {
 	$links = (int)$_POST['links'];
 	$id = $database->query('INSERT INTO `books` (`title`, `author`, `publisher`, `created`, `file`, `user`) VALUES ('.$title.', '.$author.', '.$publisher.', NOW(), "", 1)', 'insert_id');
 	save_file($id, $database);
-	generate_links($id, $links, $database);
-	echo json_encode(array('result' => 'ok', 'id' => $id));
+	$links = generate_links($id, $links, $database);
+	echo json_encode(array('result' => 'ok', 'id' => $id, 'links' => $links));
 	exit;
 }
 
@@ -76,12 +76,17 @@ if ($_GET['method'] === 'edit') {
 	$title = $database->escape($_POST['title']);
 	$author = $database->escape($_POST['author']);
 	$publisher = $database->escape($_POST['publisher']);
-	$links = (int)$_POST['links'];
 	$database->query('UPDATE `books` SET `title` = '.$title.', `author` = '.$author.', `publisher` = '.$publisher.' WHERE `id` = '.$id);
 	if (isset($_FILES['file'])) save_file($id, $database);
-	$existing_links = $database->query('SELECT * FROM `links` WHERE `book` = '.$id, 'count');
-	if ($links - $existing_links > 0) generate_links($id, $links - $existing_links, $database);
 	echo json_encode(array('result' => 'ok'));
+	exit;
+}
+
+if ($_GET['method'] === 'make_links') {
+	$id = $database->escape($_GET['id']);
+	$links = (int)$_GET['number'];
+	$bunch = generate_links($id, $links, $database);
+	echo json_encode(array('result' => 'ok', 'bunch' => $bunch));
 	exit;
 }
 
@@ -94,9 +99,11 @@ function save_file($id, $database) {
 }
 
 function generate_links($book, $total, $database) {
+	$bunch = date('d-m-Y_H-i-s').'_'.$total;
 	$values = [];
 	for ($i = 0; $i < $total; $i++) {
-		$values[] = '('.$book.', "'.md5(uniqid(rand(10000, 99999))).'")';
+		$values[] = '('.$book.', "'.md5(uniqid(rand(10000, 99999))).'", "'.$bunch.'")';
 	}
-	$database->query('INSERT INTO `links` (`book`, `code`) VALUES '.implode(',', $values));
+	$database->query('INSERT INTO `links` (`book`, `code`, `bunch`) VALUES '.implode(',', $values));
+	return $bunch;
 }
