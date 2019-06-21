@@ -24,7 +24,7 @@
 						<div class="size"><?php echo $size; ?> MB</div>
 					</div>
 				</div>
-				<div class="counter">Залишилось <span class="value"><?php echo $limit; ?></span> завантаження</div>
+				<div class="counter">Залишилось <span class="value"><?php echo $limit; ?></span> <span class="label"><?php echo plural_form($limit, array('завантаження', 'завантаження', 'завантаженнь')) ?></span></div>
 			</main>
 			<footer>
 				Якщо ви не знайшли <span class="show-help">відповідь</span> на питання, телефонуйте за номером <span class="number">0 800 700 600 50</span>

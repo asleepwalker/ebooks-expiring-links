@@ -23,4 +23,9 @@ $extension = $fileinfo['extension'];
 $size = ceil(filesize('uploads/'.$book['file']) / 100000) / 10;
 $limit = 5 - $link['downloads'];
 
+function plural_form($number, $titles) {
+  $cases = array(2, 0, 1, 1, 1, 2);
+  return $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
+}
+
 include_once './page.php';

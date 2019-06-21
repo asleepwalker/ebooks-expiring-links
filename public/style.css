@@ -63,13 +63,13 @@ main {
 }
 
 main .author {
-	font-size: 16px;
-	line-height: 1.375;
-	margin-bottom: 3px;
+	font-size: 20px;
+	line-height: 1.38;
+	margin-bottom: 14px;
 }
 
 main .title {
-	font-size: 30px;
+	font-size: 38px;
 	font-weight: 900;
 	line-height: 1.2;
 	margin-bottom: 20px;
@@ -86,9 +86,9 @@ main .download a {
 	border-radius: 8px;
 	color: white;
 	flex: 1;
-	font-size: 16px;
-	height: 48px;
-	line-height: 48px;
+	font-size: 20px;
+	height: 65px;
+	line-height: 65px;
 	margin-right: 8px;
 	text-align: center;
 	text-decoration: none;
@@ -105,12 +105,12 @@ main .download .info {
 }
 
 main .download .extension {
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: 900;
 }
 
 main .download .size {
-	font-size: 9px;
+	font-size: 13px;
 	padding-left: 3px;
 }
 
@@ -175,6 +175,30 @@ footer .number {
 .show-faq .faq,
 .show-faq .hide-help {
 	display: block;
+}
+
+@media (max-width: 320px) {
+	main .author {
+		font-size: 16px;
+	}
+
+	main .title {
+		font-size: 30px;
+	}
+
+	main .download a {
+		font-size: 16px;
+		height: 48px;
+		line-height: 48px;
+	}
+
+	main .download .extension {
+		font-size: 12px;
+	}
+
+	main .download .size {
+		font-size: 9px;
+	}
 }
 
 @media (min-width: 768px) {
