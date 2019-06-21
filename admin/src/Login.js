@@ -1,42 +1,57 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import cx from 'classnames';
 
 import { apiRoot } from './config';
 
 export default class Login extends Component {
 	state = {
 		login: '',
-		password: ''
+		password: '',
+		error: false
 	};
 
 	handleChange = event => {
 		this.setState({
-			[event.target.name]: event.target.value
+			[event.target.name]: event.target.value,
+			error: false
 		});
 	};
 
 	handleSubmit = event => {
 		event.preventDefault();
+		this.setState({ error: false });
 
 		axios.post(`${apiRoot}?method=auth`, this.state)
 			.then(response => {
 				if (response.data.result === 'ok') {
 					this.props.onSubmit();
 				} else {
-					alert('Невірний логін або пароль');
+					this.setState({ error: 'invalid' });
 				}
 			})
-			.catch(error => alert('При авторизації сталася помилка'));
+			.catch(error => {
+				this.setState({ error: 'failed' });
+			});
 	};
 
+	renderError(code) {
+		switch (code) {
+			case 'invalid': return <div className="error-msg">Логін або пароль було введено неправильно</div>;
+			case 'failed': return <div className="error-msg">При авторизації сталася помилка, спробуйте ще раз</div>;
+			default: return null;
+		}
+	}
+
 	render() {
-		const { login, password } = this.state;
+		const { login, password, error } = this.state;
+		const fieldsClassName = cx('fields', { error: error === 'invalid' });
 
 		return (
 			<main className="login">
-				<form>
+				<div className="form">
 					<h1>Вхід</h1>
-					<div className="fields">
+					<div className={fieldsClassName}>
 						<input
 							className="login"
 							name="login"
@@ -53,12 +68,15 @@ export default class Login extends Component {
 							onChange={this.handleChange}
 						/>
 					</div>
-					<button
-						className="submit"
-						disabled={!login || !password}
-						onClick={this.handleSubmit}
-					>Увійти</button>
-				</form>
+					<div className="controls">
+						{error && this.renderError(error)}
+						<button
+							className="button"
+							disabled={!login || !password}
+							onClick={this.handleSubmit}
+						>Увійти</button>
+					</div>
+				</div>
 			</main>
 		  );
 	}

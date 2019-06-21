@@ -21,6 +21,6 @@ header('Content-Disposition: attachment; filename="cardbook_'.addslashes($_GET['
 $fp = fopen('php://output', 'wb');
 fputcsv($fp, array('#QR'));
 foreach ($links as $link) {
-    fputcsv($fp, array('https://localhost/?code='.$link['code']));
+    fputcsv($fp, array('http://194.58.122.98/?code='.$link['code']));
 }
 fclose($fp);

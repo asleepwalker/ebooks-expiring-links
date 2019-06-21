@@ -15,6 +15,7 @@ export default class Editor extends Component {
 		editing: {},
 		links: [],
 		changed: false,
+		changesSaved: false,
 		showCreateLinks: false,
 		newLinks: ''
 	};
@@ -39,7 +40,8 @@ export default class Editor extends Component {
 	handleChange = (name, value) => {
 		this.setState({
 			[name]: value,
-			changed: true
+			changed: true,
+			changesSaved: false
 		});
 	};
 
@@ -82,9 +84,16 @@ export default class Editor extends Component {
 			.catch(error => alert('При генерації посилань сталася помилка'));		
 	};
 
-	handleSubmit = () => {
+	handleSubmit = (event, callback) => {
 		const { id } = this.props;
 		const { author, title, publisher, file } = this.state;
+		const { invalid } = this.validateForm();
+
+		if (invalid) {
+			alert('Форма заповнена не повністю');
+			return;
+		}
+
 		const formData = new FormData();
 
 		formData.append('id', id);
@@ -100,13 +109,28 @@ export default class Editor extends Component {
             headers: { 'Content-Type': 'multipart/form-data' }
         }).then(response => {
         	if (response.data.result === 'ok') {
-				this.setState({ changed: false });
+				this.setState({
+					changed: false,
+					changesSaved: true
+				});
+				if (callback) callback();
 			} else {
 				alert('При збереженні даних сталася помилка');
 			}
         });
+	};
 
-		
+	validateForm = () => {
+		const { author, title, publisher, file, editing } = this.state;
+
+		const invalid = [
+			!editing.author || author !== '',
+			!editing.title || title !== '',
+			!editing.publisher || publisher !== '',
+			!editing.file || file
+		].some(valid => !valid);
+
+		return { invalid };
 	};
 
 	renderInfoSection() {
@@ -175,7 +199,7 @@ export default class Editor extends Component {
 				<div className="header">
 					<h2>Список посилань</h2>
 					<button
-						className="create-btn"
+						className="button create-btn"
 						disabled={showCreateLinks}
 						onClick={this.handleCreateNewLinks}
 					>Створити посилання</button>
@@ -220,7 +244,7 @@ export default class Editor extends Component {
 	}
 
 	renderSubmitSection() {
-		const { author, title, publisher, file, editing, changed } = this.state;
+		const { author, title, publisher, file, editing, changed, changesSaved } = this.state;
 
 		const invalid = [
 			!editing.author || author !== '',
@@ -232,11 +256,11 @@ export default class Editor extends Component {
 		return (
 			<section className="submit">
 				<button
-					className={cx('button', { published: !changed })}
+					className={cx('button', { published: changesSaved })}
 					disabled={invalid || !changed}
 					onClick={this.handleSubmit}
 				>
-					{changed ? 'Зберегти зміни' : 'Зміни збережено'}
+					{!changesSaved ? 'Зберегти зміни' : 'Зміни збережено'}
 				</button>
 			</section>
 		);

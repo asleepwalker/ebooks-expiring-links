@@ -5,12 +5,18 @@ import Login from './Login';
 import List from './List';
 import Create from './Create';
 import Editor from './Editor';
+import UnsavedChanges from './UnsavedChanges';
 
 export default class App extends Component {
-	state = {
-		authorized: false,
-		editing: false
-	};
+	constructor(props) {
+		super(props);
+		this.editorRef = null;
+		this.state = {
+			authorized: false,
+			editing: false,
+			unsavedChanges: false
+		};
+	}
 
 	handleLogin = event => {
 		this.setState({
@@ -20,19 +26,65 @@ export default class App extends Component {
 	};
 
 	handleShowList = () => {
-		this.setState({ editing: false });
+		this.setStateIfNoUnsavedChanges({ editing: false });
 	};
 
 	handleCreate = () => {
-		this.setState({ editing: 0 });
+		this.setStateIfNoUnsavedChanges({ editing: 0 });
 	};
 
 	handleEdit = id => {
-		this.setState({ editing: id });
+		this.setStateIfNoUnsavedChanges({ editing: id });
 	};
 
 	handleLogout = () => {
-		this.setState({ authorized: false });
+		this.setStateIfNoUnsavedChanges({ authorized: false });
+	};
+
+	handleEditorRef = instance => {
+		this.editorRef = instance;
+	};
+
+	getUnsavedChangesFromRef = () => {
+		const { editing } = this.state;
+		return editing !== false && this.editorRef && this.editorRef.state.changed;
+	};
+
+	setStateIfNoUnsavedChanges = stateUpdate => {
+		if (this.getUnsavedChangesFromRef()) {
+			this.setState({ unsavedChanges: stateUpdate });
+		} else {
+			this.setState({
+				...stateUpdate,
+				unsavedChanges: false
+			});
+		}
+	};
+
+	validateForm = () => {
+		const { editing } = this.state;
+		if (editing === false || !this.editorRef) return false;
+
+		const { invalid } = this.editorRef.validateForm();
+		return invalid;
+	};
+
+	submitForm = event => {
+		event.stopPropagation();
+		this.editorRef.handleSubmit(null, this.applyDeferredUpdate);
+	};
+
+	applyDeferredUpdate = () => {
+		if (this.state.unsavedChanges) {
+			this.setState({
+				...this.state.unsavedChanges,
+				unsavedChanges: false
+			});
+		}
+	};
+
+	resetDeferredUpdate = () => {
+		this.setState({ unsavedChanges: false });
 	};
 
 	renderPanel() {
@@ -43,18 +95,29 @@ export default class App extends Component {
 		}
 
 		if (editing === 0) {
-			return <Create />;
+			return <Create ref={this.handleEditorRef} />;
 		}
 
 		if (editing > 0) {
-			return <Editor id={editing} />;
+			return <Editor id={editing} ref={this.handleEditorRef} />;
 		}
 
 		return <List onEdit={this.handleEdit} />;
 	}
 
+	renderUnsavedChanges() {
+		return (
+			<UnsavedChanges
+				onSubmit={this.submitForm}
+				onReset={this.applyDeferredUpdate}
+				onCancel={this.resetDeferredUpdate}
+				invalid={this.validateForm()}
+			/>
+		);
+	}
+
 	render() {
-		const { authorized, editing } = this.state;
+		const { authorized, editing, unsavedChanges } = this.state;
 
 		return (
 			<div className="wrapper">
@@ -67,6 +130,7 @@ export default class App extends Component {
 					onLogout={this.handleLogout}
 				/>
 				{ this.renderPanel() }
+				{ unsavedChanges && this.renderUnsavedChanges() }
 			</div>
 		);
 	}

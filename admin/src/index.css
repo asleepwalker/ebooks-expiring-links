@@ -16,13 +16,49 @@ body {
 }
 
 .wrapper {
+	max-width: 1280px;
 	min-width: 1024px;
+	margin: 0 auto;
 	padding: 27px 36px 82px;
+}
+
+.button {
+	align-items: center;
+	background-color: #3855fc;
+	border-radius: 15px;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	font-size: 24px;
+	padding: 16px 40px;
+	transition: all 0.25s;
+}
+
+.button:hover {
+	background-color: white;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+	color: #3855fc;
+}
+
+.button:active {
+	background-color: #fecc69;
+	box-shadow: none;
+	color: white;
+	transition-duration: 0.15s;
+}
+
+.button[disabled],
+.button.disabled {
+	background-color: #c3ccfe;
+	box-shadow: none;
+	color: white;
+	cursor: default;
 }
 
 header {
 	align-items: center;
 	display: flex;
+	height: 60px;
 }
 
 header .logo {
@@ -58,12 +94,7 @@ header .menu .item.active {
 }
 
 header .menu .create-btn {
-	align-items: center;
-	background-color: #3855fc;
-	border: 0;
-	border-radius: 15px;
 	color: white;
-	display: flex;
 	height: 60px;
 	margin-right: 174px;
 	padding: 0 22px 0 15px;
@@ -76,23 +107,20 @@ header .menu .create-btn::before {
 	margin-right: 15px;
 }
 
-header .menu .create-btn.disabled {
-	background-color: #c3ccfe;
-	color: white;
-	cursor: default;
+header .menu .create-btn:hover {
+	color: #3855fc;
 }
 
-header .menu .create-btn:not(.disabled):hover {
-	background-color: white;
-    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
-    color: #3855fc;
-}
-
-header .menu .create-btn:not(.disabled):active {
-	background-color: #fecc69;
-	box-shadow: none;
+header .menu .create-btn:active {
 	color: white;
 	transition-duration: 0.15s;
+}
+
+header .menu .create-btn.disabled {
+	background-color: #c3ccfe;
+	box-shadow: none;
+	color: white;
+	cursor: default;
 }
 
 header .menu .logout {
@@ -114,7 +142,7 @@ main.login {
 	padding: 150px 0;
 }
 
-main.login form {
+main.login .form {
 	margin: 0 auto;
 	width: 400px;
 }
@@ -151,42 +179,32 @@ main.login input.password {
 	border-bottom-right-radius: 15px;
 }
 
-main.login .submit {
-	background-color: #3855fc;
-	border-radius: 15px;
-	color: white;
-	cursor: pointer;
-	display: block;
-	font-size: 24px;
-	margin-left: auto;
+main.login .fields.error,
+main.login .fields.error input.login {
+	border-color: #e74c3c;
+}
+
+main.login .controls {
+	align-items: center;
+	display: flex;
 	margin-top: 15px;
-	padding: 16px 40px;
-	transition: all 0.25s;
 }
 
-main.login .submit[disabled] {
-	background-color: #c3ccfe;
-	cursor: default;
+main.login .error-msg {
+	color: #e74c3c;
+	font-size: 16px;
+	line-height: 1.25;
+	margin-right: 15px;
 }
 
-main.login .submit:not([disabled]):hover {
-	background-color: white;
-    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
-    color: #3855fc;
-}
-
-main.login .submit:not([disabled]):active {
-	background-color: #fecc69;
-	box-shadow: none;
-	color: white;
-	transition-duration: 0.15s;
+main.login .button {
+	margin-left: auto;
 }
 
 main.list {
 	margin-top: 36px;
 	width: 80%;
 }
-
 
 main.list .header,
 main.list .item {
@@ -329,7 +347,7 @@ main.edit section .fields {
 }
 
 main.create section .field,
-main.edit section .field {
+main.edit .new-links .field {
 	margin-right: 14px;
 	margin-bottom: 30px;
 }
@@ -403,24 +421,34 @@ main.edit section.upload .drop-zone .text {
 
 main.create section.submit .button,
 main.edit section.submit .button {
-	background-color: #3855fc;
-	border-radius: 15px;
-	color: white;
-	cursor: pointer;
-	display: flex;
 	font-size: 32px;
 	font-weight: 700;
-    height: 112px;
 	line-height: 1;
-	margin: 36px auto 0;
+	margin-top: 36px;
 	padding: 40px 70px;
-	transition: all 0.2s;
 }
 
-main.create section.submit .button[disabled],
+main.edit section.submit .button {
+	background-color: #6ac083;
+}
+
+main.edit section.submit .button:hover {
+	background-color: white;
+	box-shadow: 0 3px 8px rgba(106, 192, 131, 0.4);
+	color: #6ac083;
+}
+
+main.edit section.submit .button:active {
+	background-color: #fecc69;
+	box-shadow: none;
+	color: white;
+	transition-duration: 0.15s;
+}
+
 main.edit section.submit .button[disabled] {
-	background-color: #c3ccfe;
-	cursor: default;
+	background-color: #d2ecda;
+	box-shadow: none;
+	color: white;
 }
 
 main.create section.submit .button.published,
@@ -432,12 +460,12 @@ main.edit section.submit .button.published {
 main.create section.submit .button.published::before,
 main.edit section.submit .button.published::before {
 	background: url('check.svg') no-repeat;
-    content: '';
-    height: 41px;
-    margin-right: 16px;
-    margin-left: -45px;
-    transform: translateY(-5px);
-    width: 32px;
+	content: '';
+	height: 41px;
+	margin-right: 16px;
+	margin-left: -45px;
+	transform: translateY(-5px);
+	width: 32px;
 }
 
 main.create section.result .get-links,
@@ -447,21 +475,21 @@ main.edit section.result .get-links {
 	border-radius: 15px;
 	color: white;
 	display: inline-flex;
-    font-size: 15px;
+	font-size: 15px;
 	line-height: 1.25;
 	margin-top: 36px;
 	padding: 12px 20px;
 	transition: background-color 0.2s;
-    text-decoration: none;
+	text-decoration: none;
 }
 
 main.create section.result .get-links::before,
 main.edit section.result .get-links::before {
 	background: url('qr.svg') no-repeat;
-    content: '';
-    height: 34px;
-    margin-right: 20px;
-    width: 34px;
+	content: '';
+	height: 34px;
+	margin-right: 20px;
+	width: 34px;
 }
 
 main.create section.result .get-links:hover,
@@ -558,47 +586,19 @@ main.edit section.result .header {
 }
 
 main.edit section.result h2 {
-	flex: 1;
+	margin-right: 75px;
 }
 
 main.edit section.result .create-btn {
-	align-items: center;
-	background-color: #3855fc;
-	border: 0;
-	border-radius: 15px;
-	color: white;
-	cursor: pointer;
-	display: flex;
 	font-size: 20px;
 	height: 60px;
-	line-height: 1;
 	padding: 0 22px 0 15px;
-	transition: all 0.4s;
 }
 
 main.edit section.result .create-btn::before {
 	content: '+';
 	font-size: 36px;
 	margin-right: 15px;
-}
-
-main.edit section.result .create-btn[disabled] {
-	background-color: #c3ccfe;
-	color: white;
-	cursor: default;
-}
-
-main.edit section.result .create-btn:not([disabled]):hover {
-	background-color: white;
-    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
-    color: #3855fc;
-}
-
-main.edit section.result .create-btn:not([disabled]):active {
-	background-color: #fecc69;
-	box-shadow: none;
-	color: white;
-	transition-duration: 0.15s;
 }
 
 main.edit section.result .existing-links {
@@ -644,8 +644,8 @@ main.edit section.result .new-links .submit[disabled] {
 
 main.edit section.result .new-links .submit:not([disabled]):hover {
 	background-color: white;
-    box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
-    color: #3855fc;
+	box-shadow: 0 3px 8px rgba(56, 85, 252, 0.4);
+	color: #3855fc;
 }
 
 main.edit section.result .new-links .submit:not([disabled]):active {
@@ -653,4 +653,69 @@ main.edit section.result .new-links .submit:not([disabled]):active {
 	box-shadow: none;
 	color: white;
 	transition-duration: 0.15s;
+}
+
+main.edit section.submit { 
+	margin-top: 110px;
+}
+
+.unsaved-changes {
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.8);
+	bottom: 0;
+	display: flex;
+	left: 0;
+	justify-content: center;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.unsaved-changes .dialog {
+	position: relative;
+	width: 480px;
+}
+
+.unsaved-changes .close {
+	background: url('close.svg') no-repeat;
+	cursor: pointer;
+    height: 16px;
+    position: absolute;
+    right: -28px;
+    top: -22px;
+    width: 16px;
+}
+
+.unsaved-changes .close:hover {
+	opacity: 0.6;
+}
+
+.unsaved-changes .message {
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0 5px 20px rgba(56, 85, 252, 0.2);
+	font-size: 20px;
+	line-height: 1.25;
+	padding: 40px 20px;
+	text-align: center;
+}
+
+.unsaved-changes .controls {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 22px;
+}
+
+.unsaved-changes .cancel {
+	border-bottom: 1px solid;
+	color: #3855fc;
+	cursor: pointer;
+	font-size: 20px;
+	line-height: 1.25;
+	user-select: none;
+}
+
+.unsaved-changes .cancel:hover {
+	color: #8598ff;
 }

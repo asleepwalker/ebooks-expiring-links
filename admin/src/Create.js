@@ -29,8 +29,15 @@ export default class Create extends Component {
 		this.handleChange(event.target.name, event.target.value);
 	};
 
-	handleSubmit = () => {
+	handleSubmit = (event, callback) => {
 		const { author, title, publisher, file, links } = this.state;
+		const { invalid } = this.validateForm();
+
+		if (invalid) {
+			alert('Форма заповнена не повністю');
+			return;
+		}
+
 		const formData = new FormData();
 
 		formData.append('author', author);
@@ -45,15 +52,30 @@ export default class Create extends Component {
         	if (response.data.result === 'ok') {
 				this.setState({
 					id: response.data.id,
+					changed: false,
 					published: true,
 					firstBunch: response.data.links
 				});
+				if (callback) callback();
 			} else {
 				alert('При збереженні даних сталася помилка');
 			}
-        });
+        });		
+	};
 
-		
+	validateForm = () => {
+		const { author, title, publisher, file, links } = this.state;
+
+		const data = [
+			{ valid: author !== '', text: author, placeholder: 'Автор' },
+			{ valid: title !== '', text: title, placeholder: 'Назва' },
+			{ valid: publisher !== '', text: publisher, placeholder: 'Видавництво' },
+			{ valid: file, text: `${file.name} ${Math.ceil(file.size / 100000) / 10} MB`, placeholder: 'Файл' },
+			{ valid: links > 0, text: `${links} посилань`, placeholder: 'Кількість посилань' }
+		];
+		const invalid = data.some(({ valid }) => !valid);
+
+		return { data, invalid };
 	};
 
 	renderInfoSection() {
@@ -136,16 +158,8 @@ export default class Create extends Component {
 	}
 
 	renderSubmitSection() {
-		const { author, title, publisher, file, links, changed, published } = this.state;
-
-		const data = [
-			{ valid: author !== '', text: author, placeholder: 'Автор' },
-			{ valid: title !== '', text: title, placeholder: 'Назва' },
-			{ valid: publisher !== '', text: publisher, placeholder: 'Видавництво' },
-			{ valid: file, text: `${file.name} ${Math.ceil(file.size / 100000) / 10} MB`, placeholder: 'Файл' },
-			{ valid: links > 0, text: `${links} посилань`, placeholder: 'Кількість посилань' }
-		];
-		const invalid = data.some(({ valid }) => !valid);
+		const { changed, published } = this.state;
+		const { data, invalid } = this.validateForm();
 
 		return (
 			<section className="submit">

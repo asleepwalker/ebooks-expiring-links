@@ -10,7 +10,7 @@ export default function Header({
 	onLogout
 }) {
 	const listButtonClassNames = cx('item', { active: listButtonActive });
-	const createButtonClassNames = cx('item', 'create-btn', { disabled: createButtonActive });
+	const createButtonClassNames = cx('item', 'button create-btn', { disabled: createButtonActive });
 
 	return (
 		<header>
