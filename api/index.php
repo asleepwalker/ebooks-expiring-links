@@ -6,20 +6,14 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Content-Type: application/json; charset=UTF-8');
 
 include_once '../database.php';
+include_once './utils.php';
 
 $database = new Database();
 $database->connect();
 
-if (!isset($_GET['method'])) {
-	// TODO: Check auth
-	http_response_code(403);
-	exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-	http_response_code(200);
-	exit;
-}
+if (!isset($_GET['method'])) exit_with_error_code(403);
+if ($_GET['method'] !== 'auth' && !check_auth($database)) exit_with_error_code(401);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit_with_error_code(200);
 
 if ($_GET['method'] === 'auth') {
 	$data = json_decode(file_get_contents('php://input'));
@@ -27,7 +21,13 @@ if ($_GET['method'] === 'auth') {
 	$username = $database->escape($data->login);
 	$passhash = $database->escape(md5($data->password));
 	$user = $database->query('SELECT * FROM `users` WHERE `username` = '.$username.' and `password` = '.$passhash, 'fetch_one');
-	echo json_encode(array('result' => $user ? 'ok' : 'invalid'));
+	if ($user) {
+		$token = 'some_token';
+		$database->query('UPDATE `users` SET `token` = "'.$token.'" WHERE `id` = '.$user['id']);
+		echo json_encode(array('result' => 'ok', 'token' => $token));
+	} else {
+		echo json_encode(array('result' => 'invalid'));
+	}
 	exit;
 }
 

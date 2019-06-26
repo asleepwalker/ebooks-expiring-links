@@ -14,14 +14,16 @@ export default class App extends Component {
 		this.state = {
 			authorized: false,
 			editing: false,
-			unsavedChanges: false
+			unsavedChanges: false,
+			authToken: ''
 		};
 	}
 
-	handleLogin = event => {
+	handleLogin = authToken => {
 		this.setState({
 			authorized: true,
-			editing: false
+			editing: false,
+			authToken
 		});
 	};
 
@@ -38,7 +40,10 @@ export default class App extends Component {
 	};
 
 	handleLogout = () => {
-		this.setStateIfNoUnsavedChanges({ authorized: false });
+		this.setStateIfNoUnsavedChanges({
+			authorized: false,
+			authToken: ''
+		});
 	};
 
 	handleEditorRef = instance => {
@@ -91,18 +96,51 @@ export default class App extends Component {
 		const { authorized, editing } = this.state;
 
 		if (authorized === false) {
-			return <Login onSubmit={this.handleLogin} />;
+			return this.renderLogin();
+		} else if (editing === 0) {
+			return this.renderCreate();
+		} else if (editing > 0) {
+			return this.renderEditor();
+		} else {
+			return this.renderList();
 		}
+	}
 
-		if (editing === 0) {
-			return <Create ref={this.handleEditorRef} />;
-		}
+	renderLogin() {
+		return <Login onSubmit={this.handleLogin} />;
+	}
 
-		if (editing > 0) {
-			return <Editor id={editing} ref={this.handleEditorRef} />;
-		}
+	renderList() {
+		const { authToken } = this.state;
 
-		return <List onEdit={this.handleEdit} />;
+		return (
+			<List
+				onEdit={this.handleEdit}
+				authToken={authToken}
+			/>
+		);
+	}
+
+	renderCreate() {
+		const { authToken } = this.state;
+
+		return (
+			<Create
+				ref={this.handleEditorRef}
+				authToken={authToken}
+			/>
+		);
+	}
+
+	renderEditor() {
+		const { editing, authToken } = this.state;
+
+		return (
+			<Editor id={editing}
+				ref={this.handleEditorRef}
+				authToken={authToken}
+			/>
+		);
 	}
 
 	renderUnsavedChanges() {

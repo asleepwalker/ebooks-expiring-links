@@ -1,15 +1,12 @@
 <?php
 
 include_once '../database.php';
+include_once './utils.php';
 
 $database = new Database();
 $database->connect();
 
-/*if (!<no auth token>) {
-	// TODO: Check auth
-	http_response_code(403);
-	exit;
-}*/
+if (!check_auth($database)) exit_with_error_code(401);
 
 $id = $database->escape($_GET['id']);
 $bunch = $database->escape($_GET['bunch']);

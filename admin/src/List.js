@@ -28,10 +28,11 @@ export default class List extends Component {
 	}
 
 	fetchData = () => {
+		const { authToken } = this.props;
 		const { sortBy } = this.state;
 
-		axios.get(`${apiRoot}?method=list&sort=${sortBy}`)
-			.then(response => this.setState({ list: response.data }))
+		axios.get(`${apiRoot}?method=list&sort=${sortBy}&token=${authToken}`)
+			.then(response => Array.isArray(response.data) && this.setState({ list: response.data }))
 			.catch(error => alert('При завантаженні списку сталася помилка'));
 	};
 

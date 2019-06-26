@@ -25,7 +25,7 @@ export default class Login extends Component {
 		axios.post(`${apiRoot}?method=auth`, this.state)
 			.then(response => {
 				if (response.data.result === 'ok') {
-					this.props.onSubmit();
+					this.props.onSubmit(response.data.token);
 				} else {
 					this.setState({ error: 'invalid' });
 				}

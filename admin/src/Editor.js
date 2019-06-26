@@ -21,9 +21,9 @@ export default class Editor extends Component {
 	};
 
 	componentDidMount() {
-		const { id } = this.props;
+		const { id, authToken } = this.props;
 
-		axios.get(`${apiRoot}?method=details&id=${id}`)
+		axios.get(`${apiRoot}?method=details&id=${id}&token=${authToken}`)
 			.then(response => this.setState({ ...response.data }))
 			.catch(error => alert('При завантаженні інформації сталася помилка'));
 	}
@@ -67,10 +67,10 @@ export default class Editor extends Component {
 	};
 
 	handleSubmitNewLinks = () => {
-		const { id } = this.props;
+		const { id, authToken } = this.props;
 		const { newLinks } = this.state;
 
-		axios.get(`${apiRoot}?method=make_links&id=${id}&number=${newLinks}`)
+		axios.get(`${apiRoot}?method=make_links&id=${id}&number=${newLinks}&token=${authToken}`)
 			.then(response => {
 				if (response.data.result === 'ok') {
 					this.setState({
@@ -85,7 +85,7 @@ export default class Editor extends Component {
 	};
 
 	handleSubmit = (event, callback) => {
-		const { id } = this.props;
+		const { id, authToken } = this.props;
 		const { author, title, publisher, file } = this.state;
 		const { invalid } = this.validateForm();
 
@@ -105,19 +105,21 @@ export default class Editor extends Component {
 			formData.append('file', file);
 		}
 
-		axios.post(`${apiRoot}?method=edit`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(response => {
-        	if (response.data.result === 'ok') {
-				this.setState({
-					changed: false,
-					changesSaved: true
-				});
-				if (callback) callback();
-			} else {
+		axios.post(`${apiRoot}?method=edit&token=${authToken}`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+			.then(response => {
+				if (response.data.result === 'ok') {
+					this.setState({
+						changed: false,
+						changesSaved: true
+					});
+					if (callback) callback();
+				}
+			})
+			.catch(error => {
 				alert('При збереженні даних сталася помилка');
-			}
-        });
+			});
 	};
 
 	validateForm = () => {
@@ -185,13 +187,13 @@ export default class Editor extends Component {
 			<section className="upload">
 				<h2>Файл книги</h2>
 				<div className="description">За необхідності оновити книгу, натисніть кнопку або перетягніть файл потрібного формату у відповідну комірку</div>
-			    <Uploader fileName={fileName} onChange={this.handleFileChange} />
+				<Uploader fileName={fileName} onChange={this.handleFileChange} />
 			</section>
 		);
 	}
 
 	renderResultSection() {
-		const { id } = this.props;
+		const { id, authToken } = this.props;
 		const { links, showCreateLinks, newLinks } = this.state;
 
 		return (
@@ -208,7 +210,7 @@ export default class Editor extends Component {
 					{links.map(bunch => (
 						<a
 							className="get-links"
-							href={`${apiRoot}links.php?id=${id}&bunch=${bunch}`}
+							href={`${apiRoot}links.php?id=${id}&bunch=${bunch}&token=${authToken}`}
 							key={bunch}
 						>
 							Завантажити<br/>

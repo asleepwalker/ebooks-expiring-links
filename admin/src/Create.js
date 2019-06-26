@@ -30,6 +30,7 @@ export default class Create extends Component {
 	};
 
 	handleSubmit = (event, callback) => {
+		const { authToken } = this.props;
 		const { author, title, publisher, file, links } = this.state;
 		const { invalid } = this.validateForm();
 
@@ -46,21 +47,23 @@ export default class Create extends Component {
 		formData.append('file', file);
 		formData.append('links', links);
 
-		axios.post(`${apiRoot}?method=create`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(response => {
-        	if (response.data.result === 'ok') {
-				this.setState({
-					id: response.data.id,
-					changed: false,
-					published: true,
-					firstBunch: response.data.links
-				});
-				if (callback) callback();
-			} else {
+		axios.post(`${apiRoot}?method=create&token=${authToken}`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+			.then(response => {
+				if (response.data.result === 'ok') {
+					this.setState({
+						id: response.data.id,
+						changed: false,
+						published: true,
+						firstBunch: response.data.links
+					});
+					if (callback) callback();
+				}
+			})
+			.catch(error => {
 				alert('При збереженні даних сталася помилка');
-			}
-        });		
+			});
 	};
 
 	validateForm = () => {
@@ -128,7 +131,7 @@ export default class Create extends Component {
 			<section className="upload">
 				<h2>2. Завантаження файлів</h2>
 				<div className="description">Натисніть кнопку або перетягніть файл потрібного формату у відповідну комірку</div>
-			    <Uploader fileName={file.name} onChange={file => this.handleChange('file', file)} />
+				<Uploader fileName={file.name} onChange={file => this.handleChange('file', file)} />
 			</section>
 		);
 	}
