@@ -22,7 +22,7 @@ if ($_GET['method'] === 'auth') {
 	$passhash = $database->escape(md5($data->password));
 	$user = $database->query('SELECT * FROM `users` WHERE `username` = '.$username.' and `password` = '.$passhash, 'fetch_one');
 	if ($user) {
-		$token = 'some_token';
+		$token = uniqid();
 		$database->query('UPDATE `users` SET `token` = "'.$token.'" WHERE `id` = '.$user['id']);
 		echo json_encode(array('result' => 'ok', 'token' => $token));
 	} else {
