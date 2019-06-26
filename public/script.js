@@ -17,7 +17,7 @@ downloadButton.onclick = () => {
 	if (downloadButton.className !== 'disabled') {
 		const value = counterValue.innerHTML - 1;
 		counterValue.innerHTML = value;
-		counterTitle.innerHTML = pluralForm(value, ['завантаження', 'завантаження', 'завантаженнь']);
+		counterTitle.innerHTML = pluralForm(value, ['завантаження', 'завантаження', 'завантажень']);
 
 		if (value === 0) {
 			setTimeout(() => {

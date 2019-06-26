@@ -219,6 +219,10 @@ footer .number {
 		width: 30px;
 	}
 
+	header .hide-help {
+		line-height: 28px;
+	}
+
 	main {
 		box-shadow: none;
 		margin-bottom: 88px;
