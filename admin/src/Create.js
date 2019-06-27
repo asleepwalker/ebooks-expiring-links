@@ -186,11 +186,12 @@ export default class Create extends Component {
 	}
 
 	renderResultSection() {
+		const { authToken } = this.props;
 		const { id, published, firstBunch } = this.state;
 
 		const notAvailable = <div className="error-msg">Опублікуйте книгу для генерації посилань на неї</div>;
 		const link = (
-			<a className="get-links" href={`${apiRoot}links.php?id=${id}&bunch=${firstBunch}`}>
+			<a className="get-links" href={`${apiRoot}links.php?id=${id}&bunch=${firstBunch}&token=${authToken}`}>
 				Завантажити<br/>
 				{`cardbook_${firstBunch}.csv`}
 			</a>
