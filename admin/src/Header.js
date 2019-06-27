@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
+import logo from './logo.svg';
+
 export default function Header({
 	showMenu = true,
 	listButtonActive = false,
@@ -14,7 +16,9 @@ export default function Header({
 
 	return (
 		<header>
-			<div className="logo">CARDBOOK</div>
+			<div className="logo">
+				<img src={logo} />
+			</div>
 			{ showMenu && (
 				<div className="menu">
 					<span className={listButtonClassNames} onClick={onShowList}>Каталог книг</span>

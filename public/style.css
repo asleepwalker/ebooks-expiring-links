@@ -29,10 +29,12 @@ header {
 
 header .logo {
 	flex: 1;
-	font-family: 'Termina', sans-serif;
-	font-size: 16px;
-	line-height: 1.25;
-	letter-spacing: 0.2em;
+}
+
+header .logo img {
+	display: block;
+	height: 21px;
+	width: auto;
 }
 
 header .show-help,

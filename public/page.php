@@ -10,7 +10,9 @@
 	<body>
 		<div class="wrapper">
 			<header>
-				<div class="logo">CARDBOOK</div>
+				<div class="logo">
+					<img src="logo.svg">
+				</div>
 				<buttom class="show-help">?</buttom>
 				<buttom class="hide-help">&times;</buttom>
 			</header>
