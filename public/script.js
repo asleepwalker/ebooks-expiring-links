@@ -1,17 +1,7 @@
 const body = document.querySelector('body');
-const showHelpButtons = document.querySelectorAll('.show-help');
-const hideHelpButton = document.querySelector('.hide-help');
 const downloadButton = document.querySelector('.download a');
 const counterValue = document.querySelector('.counter .value');
 const counterTitle = document.querySelector('.counter .label');
-
-showHelpButtons.forEach(button => button.onclick = () => {
-	body.className = 'show-faq';
-});
-
-hideHelpButton.onclick = () => {
-	body.className = '';
-};
 
 downloadButton.onclick = () => {
 	if (downloadButton.className !== 'disabled') {
