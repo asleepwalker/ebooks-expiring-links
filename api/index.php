@@ -64,9 +64,10 @@ if ($_GET['method'] === 'create') {
 	$author = $database->escape($_POST['author']);
 	$publisher = $database->escape($_POST['publisher']);
 	$links = (int)$_POST['links'];
+	$limit = (int)$_POST['limit'];
 	$id = $database->query('INSERT INTO `books` (`title`, `author`, `publisher`, `created`, `file`, `user`) VALUES ('.$title.', '.$author.', '.$publisher.', NOW(), "", 1)', 'insert_id');
 	save_file($id, $database);
-	$links = generate_links($id, $links, $database);
+	$links = generate_links($id, $links, $limit, $database);
 	echo json_encode(array('result' => 'ok', 'id' => $id, 'links' => $links));
 	exit;
 }
@@ -85,7 +86,8 @@ if ($_GET['method'] === 'edit') {
 if ($_GET['method'] === 'make_links') {
 	$id = $database->escape($_GET['id']);
 	$links = (int)$_GET['number'];
-	$bunch = generate_links($id, $links, $database);
+	$limit = (int)$_GET['limit'];
+	$bunch = generate_links($id, $links, $limit, $database);
 	echo json_encode(array('result' => 'ok', 'bunch' => $bunch));
 	exit;
 }
@@ -98,12 +100,12 @@ function save_file($id, $database) {
 	$database->query('UPDATE `books` SET `file` = '.$file.' WHERE `id` = '.$id);
 }
 
-function generate_links($book, $total, $database) {
+function generate_links($book, $total, $limit, $database) {
 	$bunch = date('d-m-Y_H-i-s').'_'.$total;
 	$values = [];
 	for ($i = 0; $i < $total; $i++) {
-		$values[] = '('.$book.', "'.md5(uniqid(rand(10000, 99999))).'", "'.$bunch.'")';
+		$values[] = '('.$book.', "'.md5(uniqid(rand(10000, 99999))).'", "'.$bunch.'", '.$limit.')';
 	}
-	$database->query('INSERT INTO `links` (`book`, `code`, `bunch`) VALUES '.implode(',', $values));
+	$database->query('INSERT INTO `links` (`book`, `code`, `bunch`, `limits`) VALUES '.implode(',', $values));
 	return $bunch;
 }

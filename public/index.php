@@ -21,7 +21,7 @@ $author = $book['author'];
 $fileinfo = pathinfo($book['file']);
 $extension = $fileinfo['extension'];
 $size = ceil(filesize('uploads/'.$book['file']) / 100000) / 10;
-$limit = 5 - $link['downloads'];
+$limit = $link['limits'] - $link['downloads'];
 
 function plural_form($number, $titles) {
 	$cases = array(2, 0, 1, 1, 1, 2);

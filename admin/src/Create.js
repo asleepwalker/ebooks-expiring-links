@@ -13,6 +13,7 @@ export default class Create extends Component {
 		publisher: '',
 		file: false,
 		links: '',
+		limit: 5,
 		changed: false,
 		published: false,
 		firstBunch: ''
@@ -31,7 +32,7 @@ export default class Create extends Component {
 
 	handleSubmit = (event, callback) => {
 		const { authToken } = this.props;
-		const { author, title, publisher, file, links } = this.state;
+		const { author, title, publisher, file, links, limit } = this.state;
 		const { invalid } = this.validateForm();
 
 		if (invalid) {
@@ -46,6 +47,7 @@ export default class Create extends Component {
 		formData.append('publisher', publisher);
 		formData.append('file', file);
 		formData.append('links', links);
+		formData.append('limit', limit);
 
 		axios.post(`${apiRoot}?method=create&token=${authToken}`, formData, {
 			headers: { 'Content-Type': 'multipart/form-data' }
@@ -67,14 +69,15 @@ export default class Create extends Component {
 	};
 
 	validateForm = () => {
-		const { author, title, publisher, file, links } = this.state;
+		const { author, title, publisher, file, links, limit } = this.state;
 
 		const data = [
 			{ valid: author !== '', text: author, placeholder: 'Автор' },
 			{ valid: title !== '', text: title, placeholder: 'Назва' },
 			{ valid: publisher !== '', text: publisher, placeholder: 'Видавництво' },
 			{ valid: file, text: `${file.name} ${Math.ceil(file.size / 100000) / 10} MB`, placeholder: 'Файл' },
-			{ valid: links > 0, text: `${links} посилань`, placeholder: 'Кількість посилань' }
+			{ valid: links > 0, text: `${links} посилань`, placeholder: 'Кількість посилань' },
+			{ valid: limit > 0, text: `По ${limit} завантажень`, placeholder: 'Ліміт завантажень' }
 		];
 		const invalid = data.some(({ valid }) => !valid);
 
@@ -137,12 +140,12 @@ export default class Create extends Component {
 	}
 
 	renderLinksSection() {
-		const { links, published } = this.state;
+		const { links, limit, published } = this.state;
 
 		return (
 			<section className="links">
 				<h2>3. Генерація посилань</h2>
-				<div className="description">Введіть необхідну кількість унікальних посилань</div>
+				<div className="description">Введіть необхідну кількість унікальних посилань та лімит завантажень за кожним з них</div>
 				<div className="fields">
 					<div className="field">
 						<label htmlFor="links">Кількість посилань</label>
@@ -151,6 +154,17 @@ export default class Create extends Component {
 							type="number"
 							name="links"
 							value={links}
+							onChange={this.handleInputChange}
+							disabled={published}
+						/>
+					</div>
+					<div className="field">
+						<label htmlFor="links">Лімит завантажень</label>
+						<input
+							id="limit"
+							type="number"
+							name="limit"
+							value={limit}
 							onChange={this.handleInputChange}
 							disabled={published}
 						/>

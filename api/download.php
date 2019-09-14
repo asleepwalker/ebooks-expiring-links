@@ -10,7 +10,7 @@ $code = $database->escape($_GET['code']);
 $link = $database->query('SELECT * FROM `links` WHERE `code` = '.$code, 'fetch_one');
 $book = $database->query('SELECT * FROM `books` WHERE `id` = '.$link['book'], 'fetch_one');
 
-if ($link['downloads'] >= 5) exit_with_error_code(403);
+if ($link['downloads'] >= $link['limits']) exit_with_error_code(403);
 
 header("Content-Description: File Transfer"); 
 header("Content-Type: application/octet-stream");

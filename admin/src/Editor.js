@@ -17,7 +17,8 @@ export default class Editor extends Component {
 		changed: false,
 		changesSaved: false,
 		showCreateLinks: false,
-		newLinks: ''
+		newLinks: '',
+		limit: 5
 	};
 
 	componentDidMount() {
@@ -58,7 +59,8 @@ export default class Editor extends Component {
 	handleCreateNewLinks = () => {
 		this.setState({
 			showCreateLinks: true,
-			newLinks: ''
+			newLinks: '',
+			limit: 5
 		});
 	};
 
@@ -66,11 +68,15 @@ export default class Editor extends Component {
 		this.setState({ newLinks: event.target.value });
 	};
 
+	handleChangeLimit = event => {
+		this.setState({ limit: event.target.value });
+	};
+
 	handleSubmitNewLinks = () => {
 		const { id, authToken } = this.props;
-		const { newLinks } = this.state;
+		const { newLinks, limit } = this.state;
 
-		axios.get(`${apiRoot}?method=make_links&id=${id}&number=${newLinks}&token=${authToken}`)
+		axios.get(`${apiRoot}?method=make_links&id=${id}&number=${newLinks}&limit=${limit}&token=${authToken}`)
 			.then(response => {
 				if (response.data.result === 'ok') {
 					this.setState({
@@ -194,7 +200,7 @@ export default class Editor extends Component {
 
 	renderResultSection() {
 		const { id, authToken } = this.props;
-		const { links, showCreateLinks, newLinks } = this.state;
+		const { links, showCreateLinks, newLinks, limit } = this.state;
 
 		return (
 			<section className="result">
@@ -221,7 +227,7 @@ export default class Editor extends Component {
 				{showCreateLinks && (
 					<div className="new-links">
 						<h2>Генерація посилань</h2>
-						<div className="description">Введіть необхідну кількість унікальних посилань</div>
+						<div className="description">Введіть необхідну кількість унікальних посилань та лімит завантажень за кожним з них</div>
 						<div className="fields">
 							<div className="field">
 								<label htmlFor="newLinks">Кількість посилань</label>
@@ -231,6 +237,16 @@ export default class Editor extends Component {
 									name="newLinks"
 									value={newLinks}
 									onChange={this.handleChangeNewLinks}
+								/>
+							</div>
+							<div className="field">
+								<label htmlFor="newLinks">Ліміт завантажень</label>
+								<input
+									id="limit"
+									type="number"
+									name="limit"
+									value={limit}
+									onChange={this.handleChangeLimit}
 								/>
 							</div>
 							<button
